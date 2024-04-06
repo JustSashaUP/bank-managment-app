@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 04, 2024 at 12:38 PM
+-- Generation Time: Apr 06, 2024 at 04:10 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -25,14 +25,14 @@ DELIMITER $$
 --
 -- Functions
 --
-CREATE DEFINER=`root`@`localhost` FUNCTION `account_counter` (`client_id` INT) RETURNS TINYINT(1) DETERMINISTIC BEGIN
+CREATE DEFINER=`root`@`localhost` FUNCTION `account_counter` (`id` INT) RETURNS TINYINT(1) DETERMINISTIC BEGIN
 	DECLARE counter INT;
     DECLARE is_access BOOLEAN;
     SET counter = 0;
     SET is_access = TRUE;
 	SELECT COUNT(*) INTO counter
     FROM account
-    WHERE client_id = client_Id;
+    WHERE client_id = id;
     
     IF counter >= 3 THEN
     	SET is_access = FALSE;
@@ -40,6 +40,23 @@ CREATE DEFINER=`root`@`localhost` FUNCTION `account_counter` (`client_id` INT) R
         
         RETURN is_access;
     END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `is_exist` (`id` INT, `title` ENUM('UAH','USD','EUR')) RETURNS TINYINT(1)  BEGIN
+    DECLARE number_ofexist INT;
+    DECLARE is_exist BOOLEAN;
+    
+    SET is_exist = FALSE;
+    
+    SELECT COUNT(*) INTO number_ofexist FROM account
+    WHERE client_id = id AND account_title = title;
+    
+    IF number_ofexist > 0 THEN
+        SET is_exist = TRUE;
+    END IF;
+    
+    RETURN is_exist;
+    
+END$$
 
 DELIMITER ;
 
@@ -76,6 +93,17 @@ INSERT INTO `account` (`account_id`, `client_id`, `account_title`, `account_numb
 --
 -- Triggers `account`
 --
+DELIMITER $$
+CREATE TRIGGER `check_account_currency` BEFORE INSERT ON `account` FOR EACH ROW BEGIN
+    DECLARE is_accountExist BOOLEAN;
+    SET is_accountExist = is_exist(NEW.client_id, NEW.account_title);
+    IF is_accountExist = TRUE THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Client already has an account with the same currency!';
+    END IF;
+    
+END
+$$
+DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `check_numberof_account` BEFORE INSERT ON `account` FOR EACH ROW BEGIN
 	DECLARE has_access BOOLEAN;
