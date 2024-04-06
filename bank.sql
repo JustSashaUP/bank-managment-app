@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 06, 2024 at 04:10 PM
+-- Generation Time: Apr 06, 2024 at 07:20 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,7 +41,7 @@ CREATE DEFINER=`root`@`localhost` FUNCTION `account_counter` (`id` INT) RETURNS 
         RETURN is_access;
     END$$
 
-CREATE DEFINER=`root`@`localhost` FUNCTION `is_exist` (`id` INT, `title` ENUM('UAH','USD','EUR')) RETURNS TINYINT(1)  BEGIN
+CREATE DEFINER=`root`@`localhost` FUNCTION `is_account_exist` (`id` INT, `title` ENUM('UAH','USD','EUR')) RETURNS TINYINT(1)  BEGIN
     DECLARE number_ofexist INT;
     DECLARE is_exist BOOLEAN;
     
@@ -57,6 +57,19 @@ CREATE DEFINER=`root`@`localhost` FUNCTION `is_exist` (`id` INT, `title` ENUM('U
     RETURN is_exist;
     
 END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `is_deposit_exist` (`id` INT) RETURNS TINYINT(1)  BEGIN
+	DECLARE is_exist BOOLEAN;
+	DECLARE counter INT;
+	SET is_exist = FALSE;
+	SELECT COUNT(*) INTO counter
+	FROM deposit
+	WHERE account_id = id;
+	IF counter > 0 THEN
+	SET is_exist = TRUE;
+	END IF;
+	RETURN is_exist;
+	END$$
 
 DELIMITER ;
 
@@ -96,7 +109,7 @@ INSERT INTO `account` (`account_id`, `client_id`, `account_title`, `account_numb
 DELIMITER $$
 CREATE TRIGGER `check_account_currency` BEFORE INSERT ON `account` FOR EACH ROW BEGIN
     DECLARE is_accountExist BOOLEAN;
-    SET is_accountExist = is_exist(NEW.client_id, NEW.account_title);
+    SET is_accountExist = is_account_exist(NEW.client_id, NEW.account_title);
     IF is_accountExist = TRUE THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Client already has an account with the same currency!';
     END IF;
@@ -264,6 +277,16 @@ INSERT INTO `deposit` (`deposit_id`, `account_id`, `deposit_size`, `deposit_star
 --
 -- Triggers `deposit`
 --
+DELIMITER $$
+CREATE TRIGGER `check_deposit` BEFORE INSERT ON `deposit` FOR EACH ROW BEGIN
+DECLARE is_depositExist BOOLEAN;
+SET is_depositExist = is_deposit_exist(NEW.account_id);
+	IF is_depositExist = TRUE THEN
+	SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'There is already one deposit on the account!';
+	END IF;
+	END
+$$
+DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `check_deposit_size` BEFORE INSERT ON `deposit` FOR EACH ROW BEGIN
 IF NEW.deposit_size <= 0 THEN
