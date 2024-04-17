@@ -2,17 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
-<<<<<<< HEAD
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2024 at 04:28 PM
+-- Generation Time: Apr 17, 2024 at 04:31 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
-=======
--- Хост: 127.0.0.1
--- Час створення: Квт 08 2024 р., 12:40
--- Версія сервера: 10.4.32-MariaDB
--- Версія PHP: 8.2.12
->>>>>>> b92465529f4c3577c99fe5918b2092e5cfffd764
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -25,12 +18,12 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- База даних: `bank`
+-- Database: `bank`
 --
 
 DELIMITER $$
 --
--- Функції
+-- Functions
 --
 CREATE DEFINER=`root`@`localhost` FUNCTION `account_counter` (`id` INT) RETURNS TINYINT(1) DETERMINISTIC BEGIN
 	DECLARE counter INT;
@@ -96,7 +89,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Структура таблиці `account`
+-- Table structure for table `account`
 --
 
 CREATE TABLE `account` (
@@ -110,7 +103,7 @@ CREATE TABLE `account` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Дамп даних таблиці `account`
+-- Dumping data for table `account`
 --
 
 INSERT INTO `account` (`account_id`, `client_id`, `account_title`, `account_number`, `account_balance`, `account_status`, `account_startdate`) VALUES
@@ -121,11 +114,10 @@ INSERT INTO `account` (`account_id`, `client_id`, `account_title`, `account_numb
 (5, 3, 'UAH', '5445123442216789', 0.57, 'online', '2023-03-01 10:04:49'),
 (6, 4, 'UAH', '6666757544227890', 250.00, 'online', '2022-12-12 15:15:04'),
 (7, 4, 'USD', '7456345782901259', 1347.27, 'online', '2024-03-14 19:05:32'),
-(8, 5, 'USD', '3458982458972387', 0.00, 'offline', '2024-01-01 12:05:12'),
-(9, 2, 'USD', '1101222233384444', 0.00, 'online', '2024-08-04 12:00:00');
+(8, 5, 'USD', '3458982458972387', 0.00, 'offline', '2024-01-01 12:05:12');
 
 --
--- Тригери `account`
+-- Triggers `account`
 --
 DELIMITER $$
 CREATE TRIGGER `check_account_currency` BEFORE INSERT ON `account` FOR EACH ROW BEGIN
@@ -153,8 +145,8 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Дублююча структура для представлення `account_credit_info`
--- (Див. нижче для фактичного подання)
+-- Stand-in structure for view `account_credit_info`
+-- (See below for the actual view)
 --
 CREATE TABLE `account_credit_info` (
 `credit_id` int(11)
@@ -173,8 +165,8 @@ CREATE TABLE `account_credit_info` (
 -- --------------------------------------------------------
 
 --
--- Дублююча структура для представлення `account_deposit_info`
--- (Див. нижче для фактичного подання)
+-- Stand-in structure for view `account_deposit_info`
+-- (See below for the actual view)
 --
 CREATE TABLE `account_deposit_info` (
 `deposit_id` int(11)
@@ -191,7 +183,7 @@ CREATE TABLE `account_deposit_info` (
 -- --------------------------------------------------------
 
 --
--- Структура таблиці `client`
+-- Table structure for table `client`
 --
 
 CREATE TABLE `client` (
@@ -205,7 +197,7 @@ CREATE TABLE `client` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Дамп даних таблиці `client`
+-- Dumping data for table `client`
 --
 
 INSERT INTO `client` (`client_id`, `first_name`, `last_name`, `phone_number`, `email`, `birth_date`, `password`) VALUES
@@ -218,8 +210,8 @@ INSERT INTO `client` (`client_id`, `first_name`, `last_name`, `phone_number`, `e
 -- --------------------------------------------------------
 
 --
--- Дублююча структура для представлення `client_accounts_info`
--- (Див. нижче для фактичного подання)
+-- Stand-in structure for view `client_accounts_info`
+-- (See below for the actual view)
 --
 CREATE TABLE `client_accounts_info` (
 `client_id` int(11)
@@ -237,7 +229,7 @@ CREATE TABLE `client_accounts_info` (
 -- --------------------------------------------------------
 
 --
--- Структура таблиці `credit`
+-- Table structure for table `credit`
 --
 
 CREATE TABLE `credit` (
@@ -252,7 +244,7 @@ CREATE TABLE `credit` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Дамп даних таблиці `credit`
+-- Dumping data for table `credit`
 --
 
 INSERT INTO `credit` (`credit_id`, `account_id`, `credit_size`, `credit_startdate`, `credit_enddate`, `credit_status`, `credit_percent`, `credit_limit`) VALUES
@@ -261,7 +253,7 @@ INSERT INTO `credit` (`credit_id`, `account_id`, `credit_size`, `credit_startdat
 (3, 2, 20000.00, '2022-04-04 12:00:00', '2024-04-04 12:00:00', 'open', 0.00, 50000.00);
 
 --
--- Тригери `credit`
+-- Triggers `credit`
 --
 DELIMITER $$
 CREATE TRIGGER `check_credit_limit` BEFORE INSERT ON `credit` FOR EACH ROW BEGIN
@@ -293,7 +285,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Структура таблиці `deposit`
+-- Table structure for table `deposit`
 --
 
 CREATE TABLE `deposit` (
@@ -306,7 +298,7 @@ CREATE TABLE `deposit` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Дамп даних таблиці `deposit`
+-- Dumping data for table `deposit`
 --
 
 INSERT INTO `deposit` (`deposit_id`, `account_id`, `deposit_size`, `deposit_startdate`, `deposit_enddate`, `deposit_percent`) VALUES
@@ -315,7 +307,7 @@ INSERT INTO `deposit` (`deposit_id`, `account_id`, `deposit_size`, `deposit_star
 (3, 6, 200000.00, '2023-01-01 19:23:23', '2030-01-01 19:23:23', 2.50);
 
 --
--- Тригери `deposit`
+-- Triggers `deposit`
 --
 DELIMITER $$
 CREATE TRIGGER `check_deposit_size` BEFORE INSERT ON `deposit` FOR EACH ROW BEGIN
@@ -339,7 +331,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Структура таблиці `transaction`
+-- Table structure for table `transaction`
 --
 
 CREATE TABLE `transaction` (
@@ -353,7 +345,7 @@ CREATE TABLE `transaction` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Дамп даних таблиці `transaction`
+-- Dumping data for table `transaction`
 --
 
 INSERT INTO `transaction` (`transaction_id`, `sender_id`, `resipient_id`, `transaction_size`, `transaction_date`, `transaction_status`, `transaction_type`) VALUES
@@ -363,7 +355,7 @@ INSERT INTO `transaction` (`transaction_id`, `sender_id`, `resipient_id`, `trans
 (4, NULL, 4, 1100.00, '2024-02-24 12:12:00', 'successfully', 'account top-up');
 
 --
--- Тригери `transaction`
+-- Triggers `transaction`
 --
 DELIMITER $$
 CREATE TRIGGER `check_transaction_size` BEFORE INSERT ON `transaction` FOR EACH ROW BEGIN
@@ -377,8 +369,8 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Дублююча структура для представлення `transaction_info`
--- (Див. нижче для фактичного подання)
+-- Stand-in structure for view `transaction_info`
+-- (See below for the actual view)
 --
 CREATE TABLE `transaction_info` (
 `transaction_id` int(11)
@@ -393,7 +385,7 @@ CREATE TABLE `transaction_info` (
 -- --------------------------------------------------------
 
 --
--- Структура для представлення `account_credit_info`
+-- Structure for view `account_credit_info`
 --
 DROP TABLE IF EXISTS `account_credit_info`;
 
@@ -402,7 +394,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Структура для представлення `account_deposit_info`
+-- Structure for view `account_deposit_info`
 --
 DROP TABLE IF EXISTS `account_deposit_info`;
 
@@ -411,7 +403,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Структура для представлення `client_accounts_info`
+-- Structure for view `client_accounts_info`
 --
 DROP TABLE IF EXISTS `client_accounts_info`;
 
@@ -420,18 +412,18 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
--- Структура для представлення `transaction_info`
+-- Structure for view `transaction_info`
 --
 DROP TABLE IF EXISTS `transaction_info`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `transaction_info`  AS SELECT `t`.`transaction_id` AS `transaction_id`, `t`.`sender_id` AS `sender_id`, `t`.`resipient_id` AS `resipient_id`, `t`.`transaction_size` AS `transaction_size`, `t`.`transaction_date` AS `transaction_date`, `t`.`transaction_status` AS `transaction_status`, `t`.`transaction_type` AS `transaction_type` FROM `transaction` AS `t` ;
 
 --
--- Індекси збережених таблиць
+-- Indexes for dumped tables
 --
 
 --
--- Індекси таблиці `account`
+-- Indexes for table `account`
 --
 ALTER TABLE `account`
   ADD PRIMARY KEY (`account_id`),
@@ -439,7 +431,7 @@ ALTER TABLE `account`
   ADD KEY `client_id` (`client_id`);
 
 --
--- Індекси таблиці `client`
+-- Indexes for table `client`
 --
 ALTER TABLE `client`
   ADD PRIMARY KEY (`client_id`),
@@ -447,21 +439,21 @@ ALTER TABLE `client`
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Індекси таблиці `credit`
+-- Indexes for table `credit`
 --
 ALTER TABLE `credit`
   ADD PRIMARY KEY (`credit_id`),
   ADD KEY `account_id` (`account_id`);
 
 --
--- Індекси таблиці `deposit`
+-- Indexes for table `deposit`
 --
 ALTER TABLE `deposit`
   ADD PRIMARY KEY (`deposit_id`),
   ADD KEY `account_id` (`account_id`);
 
 --
--- Індекси таблиці `transaction`
+-- Indexes for table `transaction`
 --
 ALTER TABLE `transaction`
   ADD PRIMARY KEY (`transaction_id`),
@@ -469,63 +461,63 @@ ALTER TABLE `transaction`
   ADD KEY `resipient_id` (`resipient_id`);
 
 --
--- AUTO_INCREMENT для збережених таблиць
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT для таблиці `account`
+-- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT для таблиці `client`
+-- AUTO_INCREMENT for table `client`
 --
 ALTER TABLE `client`
   MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT для таблиці `credit`
+-- AUTO_INCREMENT for table `credit`
 --
 ALTER TABLE `credit`
   MODIFY `credit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT для таблиці `deposit`
+-- AUTO_INCREMENT for table `deposit`
 --
 ALTER TABLE `deposit`
   MODIFY `deposit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT для таблиці `transaction`
+-- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
   MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- Обмеження зовнішнього ключа збережених таблиць
+-- Constraints for dumped tables
 --
 
 --
--- Обмеження зовнішнього ключа таблиці `account`
+-- Constraints for table `account`
 --
 ALTER TABLE `account`
   ADD CONSTRAINT `account_ibfk_1` FOREIGN KEY (`client_id`) REFERENCES `client` (`client_id`);
 
 --
--- Обмеження зовнішнього ключа таблиці `credit`
+-- Constraints for table `credit`
 --
 ALTER TABLE `credit`
   ADD CONSTRAINT `credit_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`);
 
 --
--- Обмеження зовнішнього ключа таблиці `deposit`
+-- Constraints for table `deposit`
 --
 ALTER TABLE `deposit`
   ADD CONSTRAINT `deposit_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `account` (`account_id`);
 
 --
--- Обмеження зовнішнього ключа таблиці `transaction`
+-- Constraints for table `transaction`
 --
 ALTER TABLE `transaction`
   ADD CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`sender_id`) REFERENCES `account` (`account_id`),
