@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 06, 2024 at 08:23 PM
+-- Generation Time: Apr 17, 2024 at 04:28 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -249,11 +249,20 @@ CREATE TABLE `credit` (
 
 INSERT INTO `credit` (`credit_id`, `account_id`, `credit_size`, `credit_startdate`, `credit_enddate`, `credit_status`, `credit_percent`, `credit_limit`) VALUES
 (1, 1, 25000.00, '2024-01-01 12:00:00', '2026-01-01 11:59:59', 'open', 2.50, 1000000.00),
-(2, 5, 100000.00, '2024-03-10 15:14:26', '2024-03-10 15:14:25', 'paid', 1.50, 1000000.00);
+(2, 5, 100000.00, '2024-03-10 15:14:26', '2024-03-10 15:14:25', 'paid', 1.50, 1000000.00),
+(3, 2, 20000.00, '2022-04-04 12:00:00', '2024-04-04 12:00:00', 'open', 0.00, 50000.00);
 
 --
 -- Triggers `credit`
 --
+DELIMITER $$
+CREATE TRIGGER `check_credit_limit` BEFORE INSERT ON `credit` FOR EACH ROW BEGIN
+	IF NEW.credit_size > NEW.credit_limit THEN
+	SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Credit size can't be more than credit limit!";
+	END IF;
+	END
+$$
+DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `check_credit_size` BEFORE INSERT ON `credit` FOR EACH ROW BEGIN
 	IF NEW.credit_size <= 0 THEN
@@ -471,7 +480,7 @@ ALTER TABLE `client`
 -- AUTO_INCREMENT for table `credit`
 --
 ALTER TABLE `credit`
-  MODIFY `credit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `credit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `deposit`
