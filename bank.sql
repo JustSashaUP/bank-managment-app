@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 17, 2024 at 04:31 PM
+-- Generation Time: Apr 23, 2024 at 03:12 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -22,6 +22,21 @@ SET time_zone = "+00:00";
 --
 
 DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `createClient` (IN `firstName` VARCHAR(50), IN `lastName` VARCHAR(50), IN `phoneNumber` VARCHAR(50), IN `email` VARCHAR(100), IN `birthDate` DATE, IN `password` VARCHAR(50))   BEGIN
+	INSERT INTO client(first_name, last_name, phone_number, email, birth_date, password)
+    VALUES
+    (firstName, lastName, phoneNumber, email, birth_date, password);
+    END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getClient` (IN `id` INT)   BEGIN
+	SELECT *
+    FROM client
+    WHERE client_id = id;
+    END$$
+
 --
 -- Functions
 --
@@ -205,7 +220,8 @@ INSERT INTO `client` (`client_id`, `first_name`, `last_name`, `phone_number`, `e
 (2, 'Alice', 'Johnson', '9876543210', 'alice@example.com', '1990-02-28', 'password2'),
 (3, 'Michael', 'Brown', '5555555555', 'michael@example.com', '1988-11-03', 'password3'),
 (4, 'Emily', 'Davis', '1112223333', 'emily@example.com', '1995-09-20', 'password4'),
-(5, 'David', 'Wilson', '4444444444', 'david@example.com', '1980-04-10', 'password5');
+(5, 'David', 'Wilson', '4444444444', 'david@example.com', '1980-04-10', 'password5'),
+(6, 'Mark', 'Zuckerberg', '1231231234', 'markZuckerberg@example.com', '1984-05-14', 'mark1234');
 
 -- --------------------------------------------------------
 
@@ -474,7 +490,7 @@ ALTER TABLE `account`
 -- AUTO_INCREMENT for table `client`
 --
 ALTER TABLE `client`
-  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `credit`
