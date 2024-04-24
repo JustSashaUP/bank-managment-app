@@ -1,35 +1,49 @@
 package database;
 
+import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class User {
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
     private int id;
     private String firstName;
     private String lastName;
     private String email;
     private String phoneNumber;
     private String password;
-    private Date birthDate;
+    private java.sql.Date birthDate;
 
     public User() {}
 
-    public User(int id, String firstName, String lastName, String email, String phoneNumber, String password, String birthDate) {
+    public User(int id, String firstName, String lastName, String email, String phoneNumber, String password, String birthDate)
+            throws ParseException {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.password = password;
-        this.birthDate = new Date(birthDate);
+        this.birthDate = parseDate(birthDate);
     }
 
-    public User(String firstName, String lastName, String email, String phoneNumber, String password, String birthDate) {
+    public User(String firstName, String lastName, String email, String phoneNumber, String password, String birthDate)
+            throws ParseException {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.password = password;
-        this.birthDate = new Date(birthDate);
+        this.birthDate = parseDate(birthDate);
+    }
+
+    public java.sql.Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(String birthDate) throws ParseException {
+        this.birthDate = parseDate(birthDate);
     }
 
     public int getId() {
@@ -80,12 +94,10 @@ public class User {
         this.password = password;
     }
 
-    public Date getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(Date birthDate) {
-        this.birthDate = birthDate;
+    private java.sql.Date parseDate(String date) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date utilDate = dateFormat.parse(date);
+        return new java.sql.Date(utilDate.getTime());
     }
 
     @Override

@@ -14,11 +14,17 @@ public class DBWorker {
     public DBWorker()
     {
         try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(HOST, USERNAME, PASSWORD);
         }
         catch(SQLException e)
         {
             System.err.println("database connection failed!");
+            System.err.println("SQLState: " + e.getSQLState());
+            System.err.println("Error code: " + e.getErrorCode());
+            System.err.println("Message: " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 

@@ -6,7 +6,7 @@
   </component>
   <component name="DBNavigator.Project.DataEditorManager">
     <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DatabaseBrowserManager">
@@ -16,7 +16,7 @@
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="460bf984-0185-4dde-986b-db92fdb0553e">
+    <connection id="8544c54d-acf7-4155-ae6e-c38a75e5e589">
       <console name="sql-bank" type="STANDARD" schema="" session="Main" />
     </connection>
   </component>
@@ -27,15 +27,29 @@
     <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
-    <connection id="460bf984-0185-4dde-986b-db92fdb0553e" />
+    <connection id="8544c54d-acf7-4155-ae6e-c38a75e5e589" />
+  </component>
+  <component name="DBNavigator.Project.ExecutionManager">
+    <retain-sticky-names value="false" />
+  </component>
+  <component name="DBNavigator.Project.MethodExecutionManager">
+    <method-browser />
+    <execution-history>
+      <group-entries value="true" />
+      <execution-inputs />
+    </execution-history>
+    <argument-values-cache />
   </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
     <filters />
   </component>
+  <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
+    <recently-used-interfaces />
+  </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="460bf984-0185-4dde-986b-db92fdb0553e" active="true" signed="true">
+      <connection id="8544c54d-acf7-4155-ae6e-c38a75e5e589" active="true" signed="true">
         <database>
           <name value="sql-bank" />
           <description value="" />
@@ -48,7 +62,7 @@
           <url-type value="DATABASE" />
           <host value="localhost" />
           <port value="3306" />
-          <database value="mysql" />
+          <database value="bank" />
           <tns-folder value="" />
           <tns-profile value="" />
           <type value="USER" />
@@ -524,5 +538,9 @@
         </visibility-settings>
       </environment>
     </general-settings>
+  </component>
+  <component name="DBNavigator.Project.StatementExecutionManager">
+    <execution-variables />
+    <execution-variable-types />
   </component>
 </project>
