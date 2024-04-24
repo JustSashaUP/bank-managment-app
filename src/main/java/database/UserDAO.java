@@ -1,6 +1,7 @@
 package database;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDAO {
@@ -30,5 +31,32 @@ public class UserDAO {
             System.err.println("Message: " + e.getMessage());
         }
         return result;
+    }
+
+    public boolean validate(User user)
+    {
+        DBWorker worker = new DBWorker();
+
+        String SELECT_CLIENT_SQL = "select * from client where email = ? and password = ?";
+
+        boolean status = false;
+
+        try(PreparedStatement preparedStatement = worker.getConnection().prepareStatement(SELECT_CLIENT_SQL))
+        {
+            preparedStatement.setString(1, user.getEmail());
+            preparedStatement.setString(2, user.getPassword());
+
+            System.out.println(preparedStatement);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            status = resultSet.next();
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace(System.err);
+            System.err.println("SQLState: " + e.getSQLState());
+            System.err.println("Error code: " + e.getErrorCode());
+            System.err.println("Message: " + e.getMessage());
+        }
+        return status;
     }
 }

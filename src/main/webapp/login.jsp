@@ -9,7 +9,7 @@
         max-width: 500px;
         padding: 20px;
         margin: auto;
-        height: 500px;
+        height: 250px;
         margin-top: 100px;
         background-color: rgb(63, 77, 136);
         border-radius: 5px;
@@ -36,7 +36,7 @@
         padding: 10px;
         color: aliceblue;
       }
-      #submit-button {
+      #login-button {
         background-color: rgb(252, 220, 9);
         padding: 25px;
         color:black;
@@ -50,32 +50,14 @@
         background-color: rgb(247, 231, 128);
       }
     </style>
-        </head>
+    </head>
     <body style="background-color: rgb(112, 167, 230)">
-      <form class="container" action="registerServlet" method="post">
+      <form class="container" action="loginServlet" method="post">
         <table>
-          <tr>
-            <td><label for="firstName">First name*</label></td>
-            <td>
-              <input id="firstName" name="firstName" type="text" required />
-            </td>
-          </tr>
-          <tr>
-            <td><label for="lastName">Last Name*</label></td>
-            <td>
-              <input id="lastName" name="lastName" type="text" required />
-            </td>
-          </tr>
           <tr>
             <td><label for="email">Email*</label></td>
             <td>
               <input id="email" name="email" type="email" required />
-            </td>
-          </tr>
-          <tr>
-            <td><label for="phoneNumber">phone Number*</label></td>
-            <td>
-              <input id="phoneNumber" name="phoneNumber" type="tel" required />
             </td>
           </tr>
           <tr>
@@ -84,12 +66,16 @@
               <input id="password" name="password" type="password" required />
             </td>
           </tr>
-          <tr>
-            <td><label for="birthDate">Date of birth*</label></td>
-            <td><input id="birthDate" name="birthDate" type="date" required /></td>
-          </tr>
         </table>
-        <input type="submit" value="Submit" id="submit-button" />
+        <input type="submit" value="Login" id="login-button" />
       </form>
+      <%
+        String errorMessage = (String) request.getAttribute("ErrorMessage");
+        if (errorMessage != null) {
+      %>
+              <script>
+                alert("<%= errorMessage %>")
+              </script>
+              <% } %>
     </body>
 </html>
