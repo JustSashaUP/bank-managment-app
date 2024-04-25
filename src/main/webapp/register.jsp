@@ -36,7 +36,7 @@
         padding: 10px;
         color: aliceblue;
       }
-      #submit-button {
+      #register-button {
         background-color: rgb(252, 220, 9);
         padding: 25px;
         color:black;
@@ -46,7 +46,7 @@
         font-size: large;
         font-family: system-ui;
       }
-      #submit-button:hover {
+      #register-button:hover {
         background-color: rgb(247, 231, 128);
       }
     </style>
@@ -89,7 +89,8 @@
             <td><input id="birthDate" name="birthDate" type="date" required /></td>
           </tr>
         </table>
-        <input type="submit" value="Submit" id="submit-button" />
+        <input type="submit" value="Register" id="register-button" />
+                <a href="login.jsp" style="float: right; color:white; padding-top:50px;">already registered?</a>
       </form>
     </body>
 </html>

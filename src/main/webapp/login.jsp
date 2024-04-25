@@ -9,8 +9,8 @@
         max-width: 500px;
         padding: 20px;
         margin: auto;
-        height: 250px;
-        margin-top: 100px;
+        height: 225px;
+        margin-top: 225px;
         background-color: rgb(63, 77, 136);
         border-radius: 5px;
         box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
@@ -46,7 +46,7 @@
         font-size: large;
         font-family: system-ui;
       }
-      #submit-button:hover {
+      #login-button:hover {
         background-color: rgb(247, 231, 128);
       }
     </style>
