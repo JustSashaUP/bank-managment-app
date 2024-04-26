@@ -1,5 +1,7 @@
 package database;
 
+import com.mysql.cj.PreparedQuery;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -58,5 +60,25 @@ public class UserDAO {
             System.err.println("Message: " + e.getMessage());
         }
         return status;
+    }
+
+    public int getUserId(String userEmail)
+    {
+        DBWorker worker = new DBWorker();
+        User user = new User();
+
+        String query = "call getClientIdByEmail(?)";
+
+        try (PreparedStatement statement = worker.getConnection().prepareStatement(query)) {
+            statement.setString(1, userEmail);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                System.out.println(resultSet.getInt(1));
+                user.setId(resultSet.getInt(1));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return user.getId();
     }
 }
