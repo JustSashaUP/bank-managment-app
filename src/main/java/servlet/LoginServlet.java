@@ -21,7 +21,8 @@ public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         User user = new User();
         UserDAO userDAO = new UserDAO();
 
@@ -40,15 +41,19 @@ public class LoginServlet extends HttpServlet {
         if (loginStatus)
         {
             System.out.println("Login successfully!");
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher("login_success.jsp");
-            requestDispatcher.forward(req, resp);
+            req.getRequestDispatcher("/setCookiesServlet").forward(req, resp);
         }
         else
         {
             System.out.println("Try again!");
-            req.setAttribute("ErrorMessage", "Incorrect email or password. Please try again.");
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher("login.jsp");
-            requestDispatcher.forward(req, resp);
+            req.setAttribute("errorMessage", "Incorrect email or password. Please try again.");
+            req.getRequestDispatcher("login.jsp").forward(req, resp);
         }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req,HttpServletResponse resp)
+            throws ServletException, IOException {
+        // req.getRequestDispatcher("login.jsp").forward(req, resp);
     }
 }
