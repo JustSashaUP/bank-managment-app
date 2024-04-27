@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2024 at 03:17 PM
+-- Generation Time: Apr 27, 2024 at 08:29 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -25,16 +25,16 @@ DELIMITER $$
 --
 -- Procedures
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `createClient` (IN `firstName` VARCHAR(50), IN `lastName` VARCHAR(50), IN `phoneNumber` VARCHAR(50), IN `email` VARCHAR(100), IN `birthDate` DATE, IN `password` VARCHAR(50))   BEGIN
-	INSERT INTO client(first_name, last_name, phone_number, email, birth_date, password)
-    VALUES
-    (firstName, lastName, phoneNumber, email, birth_date, password);
-    END$$
-
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getClient` (IN `id` INT)   BEGIN
 	SELECT *
     FROM client
     WHERE client_id = id;
+    END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getClientIdByEmail` (IN `client_email` VARCHAR(100))   BEGIN
+	SELECT client_id
+    FROM client
+    WHERE email = client_email;
     END$$
 
 --
@@ -221,7 +221,26 @@ INSERT INTO `client` (`client_id`, `first_name`, `last_name`, `phone_number`, `e
 (3, 'Michael', 'Brown', '5555555555', 'michael@example.com', '1988-11-03', 'password3'),
 (4, 'Emily', 'Davis', '1112223333', 'emily@example.com', '1995-09-20', 'password4'),
 (5, 'David', 'Wilson', '4444444444', 'david@example.com', '1980-04-10', 'password5'),
-(6, 'Mark', 'Zuckerberg', '1231231234', 'markZuckerberg@example.com', '1984-05-14', 'mark1234');
+(6, 'Mark', 'Zuckerberg', '1231231234', 'markZuckerberg@example.com', '1984-05-14', 'mark1234'),
+(7, 'testJavaUser', 'test', 'test', 'test@test', '0000-00-00', 'test'),
+(8, 'testJavaUser2', 'test2', 'test2', 'test2@test', '0000-00-00', 'test2'),
+(9, 'test3', 'test3', 'test3', 'test3@test', '0000-00-00', 'test3'),
+(10, 'test4', 'test4', 'test4', 'test4@test', '0000-00-00', 'test4'),
+(11, 'test5', 'test5', 'test5', 'test5@test5', '0000-00-00', 'test5'),
+(12, 'test6', 'test6', 'test6', 'test6@test6', '0000-00-00', 'test6'),
+(14, 'test7', 'test7', 'test7', 'test7@test7', '0000-00-00', 'test7'),
+(15, '1234', '1234', '1323213', '1234@1234', '0000-00-00', '123123123'),
+(16, 'test8', 'test8', 'test8', 'test8@test8', '0000-00-00', 'test8'),
+(17, 'testProcedure', 'test9', 'test9', 'test@test9', '0000-00-00', 'test12345'),
+(18, 'testProcedure2', 'test10', 'test10', 'test10@test10', '0000-00-00', 'test123455'),
+(19, 'test11', 'test11', 'test11@test11', '2024-04-04', '2024-04-04', 'test1111'),
+(20, 'test12', 'test12', 'test12', 'test12@test12', '2024-04-04', 'test12'),
+(21, 't13', 't13', 't13', 't13@t13', '0000-00-00', 't13'),
+(22, 't14', 't14', 't14', 't14@t14', '0000-00-00', '12345'),
+(23, 'test15', 'test15', 'test15', 'test15@test15', '2024-04-04', 'test15'),
+(24, 'test17', 'test17', 'test17', 'test17@test17', '2024-04-04', 'test17'),
+(25, 'testRegisterPage', 'RegistePage', '+380663214321', 'testRegisterPage@exampl.com', '2024-04-25', 'pssqordpEGISTERpAGE'),
+(29, 'Oleksandr', 'Savchenko', '3123123123', 'example4@gmail.com', '2024-04-04', 'dfewdwedwed2d');
 
 -- --------------------------------------------------------
 
@@ -490,7 +509,7 @@ ALTER TABLE `account`
 -- AUTO_INCREMENT for table `client`
 --
 ALTER TABLE `client`
-  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `credit`
