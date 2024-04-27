@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
+=======
+  <component name="DBNavigator.Project.DDLFileAttachmentManager">
+    <mappings />
+    <preferences />
+  </component>
+  <component name="DBNavigator.Project.DataEditorManager">
+    <record-view-column-sorting-type value="BY_INDEX" />
+    <value-preview-text-wrapping value="false" />
+    <value-preview-pinned value="false" />
+  </component>
+>>>>>>> c1283c05c5d00a88cd32030caca23c0b032e2824
   <component name="DBNavigator.Project.DatabaseBrowserManager">
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
@@ -7,6 +19,7 @@
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
+<<<<<<< HEAD
     <connection id="a8bda906-ef68-4272-a93e-55dfb54165cd">
       <console name="bankDB" type="STANDARD" schema="" session="Main" />
     </connection>
@@ -14,15 +27,55 @@
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files />
   </component>
+=======
+    <connection id="8544c54d-acf7-4155-ae6e-c38a75e5e589">
+      <console name="sql-bank" type="STANDARD" schema="bank" session="Main" />
+    </connection>
+  </component>
+  <component name="DBNavigator.Project.DatabaseEditorStateManager">
+    <last-used-providers />
+  </component>
+  <component name="DBNavigator.Project.DatabaseFileManager">
+    <open-files />
+  </component>
+  <component name="DBNavigator.Project.DatabaseSessionManager">
+    <connection id="8544c54d-acf7-4155-ae6e-c38a75e5e589" />
+  </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="8544c54d-acf7-4155-ae6e-c38a75e5e589" dataset="bank.client" active-filter-id="" />
+  </component>
+  <component name="DBNavigator.Project.ExecutionManager">
+    <retain-sticky-names value="false" />
+  </component>
+  <component name="DBNavigator.Project.MethodExecutionManager">
+    <method-browser />
+    <execution-history>
+      <group-entries value="true" />
+      <execution-inputs />
+    </execution-history>
+    <argument-values-cache />
+  </component>
+>>>>>>> c1283c05c5d00a88cd32030caca23c0b032e2824
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
     <filters />
   </component>
+<<<<<<< HEAD
   <component name="DBNavigator.Project.Settings">
     <connections>
       <connection id="a8bda906-ef68-4272-a93e-55dfb54165cd" active="true" signed="true">
         <database>
           <name value="bankDB" />
+=======
+  <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
+    <recently-used-interfaces />
+  </component>
+  <component name="DBNavigator.Project.Settings">
+    <connections>
+      <connection id="8544c54d-acf7-4155-ae6e-c38a75e5e589" active="true" signed="true">
+        <database>
+          <name value="sql-bank" />
+>>>>>>> c1283c05c5d00a88cd32030caca23c0b032e2824
           <description value="" />
           <database-type value="MYSQL" />
           <config-type value="BASIC" />
@@ -33,7 +86,11 @@
           <url-type value="DATABASE" />
           <host value="localhost" />
           <port value="3306" />
+<<<<<<< HEAD
           <database value="mysql" />
+=======
+          <database value="bank" />
+>>>>>>> c1283c05c5d00a88cd32030caca23c0b032e2824
           <tns-folder value="" />
           <tns-profile value="" />
           <type value="USER" />
@@ -510,4 +567,11 @@
       </environment>
     </general-settings>
   </component>
+<<<<<<< HEAD
+=======
+  <component name="DBNavigator.Project.StatementExecutionManager">
+    <execution-variables />
+    <execution-variable-types />
+  </component>
+>>>>>>> c1283c05c5d00a88cd32030caca23c0b032e2824
 </project>

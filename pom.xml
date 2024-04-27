@@ -1,7 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+<<<<<<< HEAD
   <groupId>org.bank-project</groupId>
+=======
+  <groupId>org.bank-managment-system</groupId>
+>>>>>>> c1283c05c5d00a88cd32030caca23c0b032e2824
   <artifactId>bank-project</artifactId>
   <packaging>war</packaging>
   <properties>
@@ -19,6 +23,7 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+<<<<<<< HEAD
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>8.0.33</version>
@@ -34,6 +39,16 @@
       <artifactId>jsp-api</artifactId>
       <version>2.0</version>
       <scope>provided</scope>
+=======
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>4.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.33</version>
+>>>>>>> c1283c05c5d00a88cd32030caca23c0b032e2824
     </dependency>
   </dependencies>
   <build>
