@@ -4,6 +4,7 @@
   <html>
   <head>
     <title>Registration Form</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <style>
       .container {
         max-width: 500px;
@@ -92,5 +93,23 @@
         <input type="submit" value="Register" id="register-button" />
                 <a href="login.jsp" style="float: right; color:white; padding-top:50px;">already registered?</a>
       </form>
+      <%
+        String status = (String) request.getAttribute("errorMessage");
+        if (status != null)
+        {
+      %>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Login failed!',
+                text: '<%= status %>',
+            }).then(function() {
+                window.location.href = 'register.jsp';
+            });
+        </script>
+      <%
+        request.setAttribute("errorMessage", null);
+        }
+      %>
     </body>
 </html>

@@ -4,13 +4,14 @@
   <html>
   <head>
     <title>Registration Form</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <style>
       .container {
         max-width: 500px;
         padding: 20px;
         margin: auto;
         height: 225px;
-        margin-top: 225px;
+        margin-top: 250px;
         background-color: rgb(63, 77, 136);
         border-radius: 5px;
         box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
@@ -70,12 +71,22 @@
         <input type="submit" value="Login" id="login-button" />
       </form>
       <%
-        String errorMessage = (String) request.getAttribute("ErrorMessage");
-        if (errorMessage != null) {
+        String status = (String) request.getAttribute("errorMessage");
+        if (status != null)
+        {
       %>
-              <script>
-                alert("<%= errorMessage %>")
-              </script>
-              <% } %>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Login failed!',
+                text: '<%= status %>',
+            }).then(function() {
+                window.location.href = 'login.jsp';
+            });
+        </script>
+      <%
+        request.setAttribute("errorMessage", null);
+        }
+      %>
     </body>
 </html>
