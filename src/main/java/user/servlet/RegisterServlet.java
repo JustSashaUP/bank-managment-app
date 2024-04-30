@@ -1,7 +1,10 @@
-package servlet;
+package user.servlet;
 
-import database.User;
-import database.UserDAO;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import user.database.User;
+import user.database.UserDAO;
+import utils.fileutil.LoggerUtils;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,22 +21,21 @@ import java.text.ParseException;
  */
 @WebServlet("/registerServlet")
 public class RegisterServlet extends HttpServlet {
-    private static UserDAO userDAO;
     @Serial
     private static final long serialVersionUID = 1L;
-
-    public RegisterServlet() {
-        super();
-    }
-
-    public void init()
-    {
-        userDAO = new UserDAO();
-    }
+    private static UserDAO userDAO;
+    private static User user;
+    private static Logger logger;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = new User();
+        userDAO = new UserDAO();
+        user = new User();
+        logger = LogManager.getLogger(LoginServlet.class);
+        LoggerUtils.setLogger(logger);
+
+        logger.info("start RegisterServlet");
+
         user.setFirstName(req.getParameter("firstName"));
         user.setLastName(req.getParameter("lastName"));
         user.setEmail(req.getParameter("email"));
@@ -41,14 +43,19 @@ public class RegisterServlet extends HttpServlet {
         user.setPassword(req.getParameter("password"));
         try {
             user.setBirthDate(req.getParameter("birthDate"));
-            userDAO.registerUser(user);
+            if (!(userDAO.validate(user)))
+            {
+                userDAO.registerUser(user);
+                logger.info("Register successfully!");
+                req.getRequestDispatcher("register_success.jsp").forward(req, resp);
+                return;
+            }
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("register_success.jsp");
-        requestDispatcher.forward(req, resp);
+        logger.warn("User already member!");
+        req.setAttribute("errorMessage", "User already member!");
+        req.getRequestDispatcher("register.jsp").forward(req, resp);
+        logger.info("RegisterServlet finished");
     }
 }
