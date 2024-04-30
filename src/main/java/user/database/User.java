@@ -1,11 +1,13 @@
-package database;
+package user.database;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class User implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
     private int id;
     private String firstName;

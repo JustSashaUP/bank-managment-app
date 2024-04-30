@@ -5,8 +5,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Home</title>
-<html>
+</head>
 <body>
 <b align="center">There is your home page</b>
+</form>
 </body>
 </html>

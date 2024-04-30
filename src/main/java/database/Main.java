@@ -1,5 +1,7 @@
 package database;
 
+import user.database.User;
+
 import java.sql.*;
 import java.text.ParseException;
 

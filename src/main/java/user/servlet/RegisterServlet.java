@@ -51,7 +51,8 @@ public class RegisterServlet extends HttpServlet {
                 return;
             }
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+            logger.error("RegisterServlet ERROR: " + e.getMessage());
+            System.out.println("RegisterServlet ERROR: " + e.getMessage());
         }
         logger.warn("User already member!");
         req.setAttribute("errorMessage", "User already member!");
