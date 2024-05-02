@@ -31,7 +31,7 @@ public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         userDAO = new UserDAO();
         user = new User();
-        logger = LogManager.getLogger(LoginServlet.class);
+        logger = LogManager.getLogger(RegisterServlet.class);
         LoggerUtils.setLogger(logger);
 
         logger.info("start RegisterServlet");
@@ -43,7 +43,7 @@ public class RegisterServlet extends HttpServlet {
         user.setPassword(req.getParameter("password"));
         try {
             user.setBirthDate(req.getParameter("birthDate"));
-            if (!(userDAO.validate(user)))
+            if (!(userDAO.registerValidate(user)))
             {
                 userDAO.registerUser(user);
                 logger.info("Register successfully!");
