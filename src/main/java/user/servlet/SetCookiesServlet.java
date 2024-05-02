@@ -23,16 +23,17 @@ public class SetCookiesServlet extends HttpServlet {
 
         userDAO = new UserDAO();
 
-        String value = String.format("%d", userDAO.getUserId(req.getParameter("email")));
-        Cookie cookie = new Cookie("auntId", value);
+        String auntId = String.format("%d", userDAO.getUserId(req.getParameter("email")));
+        Cookie cookie = new Cookie("auntId", auntId);
 
-        logger.info("SET user cookies: " + value);
+        logger.info("SET user cookies: " + auntId);
 
         cookie.setMaxAge(-1);
         resp.addCookie(cookie);
 
         logger.info("SetCookiesServlet finished");
-        req.getRequestDispatcher("/getCookiesServlet").forward(req, resp);
+        resp.sendRedirect("homePage.jsp");
+        //req.getRequestDispatcher("/getCookiesServlet").forward(req, resp);
     }
 
     @Override
