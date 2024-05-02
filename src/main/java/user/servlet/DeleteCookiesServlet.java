@@ -12,10 +12,11 @@ import java.io.IOException;
 public class DeleteCookiesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Cookie cookie = new Cookie("client_id", "");
+        Cookie cookie = new Cookie("auntId", "");
 
         cookie.setMaxAge(0);
         resp.addCookie(cookie);
+        resp.sendRedirect("index.jsp");
     }
 
     @Override
