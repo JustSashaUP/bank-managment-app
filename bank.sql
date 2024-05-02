@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 27, 2024 at 08:29 AM
+-- Generation Time: May 02, 2024 at 11:13 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -27,6 +27,12 @@ DELIMITER $$
 --
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getClient` (IN `id` INT)   BEGIN
 	SELECT *
+    FROM client
+    WHERE client_id = id;
+    END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getClientData` (IN `id` INT)   BEGIN
+	SELECT * 
     FROM client
     WHERE client_id = id;
     END$$
@@ -240,7 +246,8 @@ INSERT INTO `client` (`client_id`, `first_name`, `last_name`, `phone_number`, `e
 (23, 'test15', 'test15', 'test15', 'test15@test15', '2024-04-04', 'test15'),
 (24, 'test17', 'test17', 'test17', 'test17@test17', '2024-04-04', 'test17'),
 (25, 'testRegisterPage', 'RegistePage', '+380663214321', 'testRegisterPage@exampl.com', '2024-04-25', 'pssqordpEGISTERpAGE'),
-(29, 'Oleksandr', 'Savchenko', '3123123123', 'example4@gmail.com', '2024-04-04', 'dfewdwedwed2d');
+(29, 'Oleksandr', 'Savchenko', '3123123123', 'example4@gmail.com', '2024-04-04', 'dfewdwedwed2d'),
+(30, 'test20', 'test20', 'test20', 'test20@test20', '2024-04-04', 'test20');
 
 -- --------------------------------------------------------
 
@@ -509,7 +516,7 @@ ALTER TABLE `account`
 -- AUTO_INCREMENT for table `client`
 --
 ALTER TABLE `client`
-  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `credit`
