@@ -53,6 +53,16 @@
     </style>
         </head>
     <body style="background-color: rgb(112, 167, 230)">
+
+    <!-- check on user authentication-->
+        <%
+            String auntId = null;
+            if(session.getAttribute("currentUserSession") != null)
+            {
+            	response.sendRedirect("homePage.jsp");
+            }
+        %>
+
       <form class="container" action="registerServlet" method="post">
         <table>
           <tr>
@@ -104,7 +114,7 @@
                 title: 'Login failed!',
                 text: '<%= status %>',
             }).then(function() {
-                window.location.href = 'register.jsp';
+                window.location.href = 'login.jsp';
             });
         </script>
       <%
