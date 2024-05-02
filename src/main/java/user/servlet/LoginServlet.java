@@ -39,22 +39,28 @@ public class LoginServlet extends HttpServlet {
         boolean loginStatus = false;
         try
         {
-            loginStatus = userDAO.validate(user);
+            loginStatus = userDAO.loginValidate(user);
         }
         catch(Exception e)
         {
-            e.printStackTrace();
+            logger.error("Login error: " + e.getMessage());
+            System.out.println("Login error: " + e.getMessage());
         }
         if (loginStatus)
         {
-            logger.info("Login successfully!");
+            logger.info("Creating session...");
+            //TEST CREATING SESSION AND COOKIE
+            HttpSession session = req.getSession();
+            session.setAttribute("currentUserSession",
+                    userDAO.getUser(userDAO.getUserId(user.getEmail())));
+            session.setMaxInactiveInterval(-1);
             req.getRequestDispatcher("/setCookiesServlet").forward(req, resp);
         }
         else
         {
             logger.warn("Login invalid data!");
             req.setAttribute("errorMessage", "Incorrect email or password. Please try again.");
-            req.getRequestDispatcher("login.jsp").forward(req, resp);
+            req.getRequestDispatcher("login.jsp").include(req, resp);
         }
         logger.info("LoginServlet finished");
     }
