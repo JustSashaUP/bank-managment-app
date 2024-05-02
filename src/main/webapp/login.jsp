@@ -53,6 +53,13 @@
     </style>
     </head>
     <body style="background-color: rgb(112, 167, 230)">
+    <%
+        String auntId = null;
+        if(session.getAttribute("currentUserSession") != null)
+        {
+        	response.sendRedirect("homePage.jsp");
+        }
+    %>
       <form class="container" action="loginServlet" method="post">
         <table>
           <tr>
