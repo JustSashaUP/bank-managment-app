@@ -1,10 +1,13 @@
 package user.database;
 
+import account.database.Account;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class User implements Serializable {
     @Serial
@@ -16,6 +19,7 @@ public class User implements Serializable {
     private String phoneNumber;
     private String password;
     private java.sql.Date birthDate;
+    private List<Account> accountList;
 
     public User() {}
 
@@ -38,6 +42,38 @@ public class User implements Serializable {
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.birthDate = parseDate(birthDate);
+    }
+
+    public List<Account> getAccounts() {
+        return accountList;
+    }
+
+    public void setAccounts(List<Account> accounts) {
+        this.accountList = accounts;
+    }
+
+    public void setAccount(int i, Account account)
+    {
+        accountList.set(i, account);
+    }
+
+    public Account getAccount(int i)
+    {
+        return accountList.get(i);
+    }
+
+    public boolean addAccount(Account account)
+    {
+        if (accountList.contains(account))
+        {
+            return false;
+        }
+        return accountList.add(account);
+    }
+
+    public int accountsCount()
+    {
+        return accountList.size();
     }
 
     public java.sql.Date getBirthDate() {

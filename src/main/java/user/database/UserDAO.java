@@ -1,5 +1,7 @@
 package user.database;
 
+import account.database.Account;
+import account.database.AccountDAO;
 import database.DBWorker;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,8 +12,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.List;
 
 public class UserDAO {
+    private static final String INSERT_CLIENT_SQL = "INSERT INTO `client`" +
+            "(`first_name`, `last_name`, `phone_number`, `email`, `birth_date`, `password`) \n"
+            + "VALUES \n"
+            + "(?,?,?,?,?,?);";
+    private static final String SELECT_CLIENT_EMAIL_PASS_SQL = "select * from client where email = ? and password = ?";
+    private static final String SELECT_CLIENT_EMAIL_SQL = "select * from client where email = ?";
+    private static final String GET_PROCEDURE_CLIENT_DATA = "call getClientData(?)";
+    private static final String GET_PROCEDURE_CLIENT_ID = "call getClientIdByEmail(?)";
     private static User user;
     private static Logger logger;
     static
@@ -23,9 +34,7 @@ public class UserDAO {
     {
         DBWorker worker = new DBWorker();
         logger.info("SET client data from database");
-        String INSERT_CLIENT_SQL = "INSERT INTO `client`(`first_name`, `last_name`, `phone_number`, `email`, `birth_date`, `password`) \n" +
-                "VALUES \n" +
-                "(?,?,?,?,?,?);";
+
         int result = 0;
 
         try(PreparedStatement preparedStatement = worker.getConnection().prepareStatement(INSERT_CLIENT_SQL)) {
@@ -36,7 +45,6 @@ public class UserDAO {
             preparedStatement.setDate(5, user.getBirthDate());
             preparedStatement.setString(6, user.getPassword());
             logger.info(preparedStatement);
-            System.out.println(preparedStatement);
 
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -53,11 +61,10 @@ public class UserDAO {
     {
         DBWorker worker = new DBWorker();
         logger.info("GET client data from database");
-        String SELECT_CLIENT_SQL = "select * from client where email = ? and password = ?";
 
         boolean status = false;
 
-        try(PreparedStatement preparedStatement = worker.getConnection().prepareStatement(SELECT_CLIENT_SQL))
+        try(PreparedStatement preparedStatement = worker.getConnection().prepareStatement(SELECT_CLIENT_EMAIL_PASS_SQL))
         {
             preparedStatement.setString(1, user.getEmail());
             preparedStatement.setString(2, user.getPassword());
@@ -81,11 +88,10 @@ public class UserDAO {
     {
         DBWorker worker = new DBWorker();
         logger.info("GET client data from database");
-        String SELECT_CLIENT_SQL = "select * from client where email = ?";
 
         boolean status = false;
 
-        try(PreparedStatement preparedStatement = worker.getConnection().prepareStatement(SELECT_CLIENT_SQL))
+        try(PreparedStatement preparedStatement = worker.getConnection().prepareStatement(SELECT_CLIENT_EMAIL_SQL))
         {
             preparedStatement.setString(1, user.getEmail());
 
@@ -109,9 +115,8 @@ public class UserDAO {
         DBWorker worker = new DBWorker();
         user = new User();
         logger.info("GET client_id data from database");
-        String query = "call getClientIdByEmail(?)";
 
-        try (PreparedStatement statement = worker.getConnection().prepareStatement(query)) {
+        try (PreparedStatement statement = worker.getConnection().prepareStatement(GET_PROCEDURE_CLIENT_ID)) {
             statement.setString(1, userEmail);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -132,12 +137,12 @@ public class UserDAO {
         DBWorker worker = new DBWorker();
         user = new User();
         logger.info("GET client_id data from database");
-        String query = "call getClientData(?)";
 
-        try (PreparedStatement statement = worker.getConnection().prepareStatement(query)) {
+        try (PreparedStatement statement = worker.getConnection().prepareStatement(GET_PROCEDURE_CLIENT_DATA)) {
             statement.setString(1, String.valueOf(id));
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
+                user.setId(id);
                 user.setFirstName(resultSet.getString("first_name"));
                 user.setLastName(resultSet.getString("last_name"));
                 user.setEmail(resultSet.getString("email"));

@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
         if (loginStatus)
         {
             logger.info("Creating session...");
-            //TEST CREATING SESSION AND COOKIE
+            //CREATING SESSION AND COOKIES
             HttpSession session = req.getSession();
             session.setAttribute("currentUserSession",
                     userDAO.getUser(userDAO.getUserId(user.getEmail())));

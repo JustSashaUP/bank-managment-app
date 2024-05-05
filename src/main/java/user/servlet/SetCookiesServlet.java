@@ -24,12 +24,18 @@ public class SetCookiesServlet extends HttpServlet {
         userDAO = new UserDAO();
 
         String auntId = String.format("%d", userDAO.getUserId(req.getParameter("email")));
+
+        Cookie cookieAccount = new Cookie("currentAccountIndex", "0");
         Cookie cookie = new Cookie("auntId", auntId);
 
         logger.info("SET user cookies: " + auntId);
+        logger.info("SET account cookies: " + cookieAccount.getValue());
 
         cookie.setMaxAge(-1);
+        cookieAccount.setMaxAge(-1);
+
         resp.addCookie(cookie);
+        resp.addCookie(cookieAccount);
 
         logger.info("SetCookiesServlet finished");
         resp.sendRedirect("homePage.jsp");
