@@ -8,16 +8,16 @@ contentType="text/html; charset=ISO-8859-1"
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Home</title>
 <style>
-            body {
-                margin: 0;
-                padding: 0;
-            }
-            .container {
-                width: 65%;
-                margin: 0 auto;
-                padding: 20px;
-                background-color: #f0f0f0;
-            }
+    body {
+        margin: 0;
+        padding: 0;
+        }
+    .container {
+        width: 65%;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f0f0f0;
+        }
 </style>
 </head>
 <body>
@@ -54,6 +54,9 @@ for(Cookie cookie : cookies){
 </div>
 <div>
     Birth Date: <%=currentUser.getBirthDate()%>
+</div>
+<div>
+    <a href="accountPage.jsp">show accounts</a>
 </div>
 <br>
     <form id="logoutForm" action="logoutServlet" method="post">
