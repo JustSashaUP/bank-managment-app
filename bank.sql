@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2024 at 11:13 AM
+-- Generation Time: May 06, 2024 at 06:22 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -25,6 +25,12 @@ DELIMITER $$
 --
 -- Procedures
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getAccountDataByClientId` (IN `id` INT)   BEGIN 
+	SELECT *
+    FROM account
+    WHERE client_id = id;
+    END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getClient` (IN `id` INT)   BEGIN
 	SELECT *
     FROM client
@@ -41,6 +47,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `getClientIdByEmail` (IN `client_ema
 	SELECT client_id
     FROM client
     WHERE email = client_email;
+    END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getCreditDataByAccountId` (IN `id` INT)   BEGIN
+	SELECT *
+    FROM credit
+    WHERE account_id = id;
     END$$
 
 --
@@ -61,6 +73,35 @@ CREATE DEFINER=`root`@`localhost` FUNCTION `account_counter` (`id` INT) RETURNS 
         
         RETURN is_access;
     END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `generateCardNumber` () RETURNS VARCHAR(16) CHARSET utf8mb4 COLLATE utf8mb4_general_ci  BEGIN
+    DECLARE card_number VARCHAR(16);
+    DECLARE exists_count INT;
+    
+    REPEAT
+        SET card_number = '';
+        
+        SET card_number = CONCAT(card_number, FLOOR(RAND() * 10));
+        SET card_number = CONCAT(card_number, FLOOR(RAND() * 10));
+        SET card_number = CONCAT(card_number, FLOOR(RAND() * 10));
+        SET card_number = CONCAT(card_number, FLOOR(RAND() * 10));
+        SET card_number = CONCAT(card_number, FLOOR(RAND() * 10));
+        SET card_number = CONCAT(card_number, FLOOR(RAND() * 10));
+        SET card_number = CONCAT(card_number, FLOOR(RAND() * 10));
+        SET card_number = CONCAT(card_number, FLOOR(RAND() * 10));
+        SET card_number = CONCAT(card_number, FLOOR(RAND() * 10));
+        SET card_number = CONCAT(card_number, FLOOR(RAND() * 10));
+        SET card_number = CONCAT(card_number, FLOOR(RAND() * 10));
+        SET card_number = CONCAT(card_number, FLOOR(RAND() * 10));
+        SET card_number = CONCAT(card_number, FLOOR(RAND() * 10));
+        SET card_number = CONCAT(card_number, FLOOR(RAND() * 10));
+        SET card_number = CONCAT(card_number, FLOOR(RAND() * 10));
+        SET card_number = CONCAT(card_number, FLOOR(RAND() * 10));
+        
+        SELECT COUNT(*) INTO exists_count FROM account WHERE account_number = card_number;
+    UNTIL exists_count = 0 END REPEAT;
+    RETURN card_number;
+END$$
 
 CREATE DEFINER=`root`@`localhost` FUNCTION `is_credit_exist` (`id` INT) RETURNS TINYINT(1)  BEGIN
 	DECLARE is_exist BOOLEAN;
@@ -135,7 +176,8 @@ INSERT INTO `account` (`account_id`, `client_id`, `account_title`, `account_numb
 (5, 3, 'UAH', '5445123442216789', 0.57, 'online', '2023-03-01 10:04:49'),
 (6, 4, 'UAH', '6666757544227890', 250.00, 'online', '2022-12-12 15:15:04'),
 (7, 4, 'USD', '7456345782901259', 1347.27, 'online', '2024-03-14 19:05:32'),
-(8, 5, 'USD', '3458982458972387', 0.00, 'offline', '2024-01-01 12:05:12');
+(8, 5, 'USD', '3458982458972387', 0.00, 'offline', '2024-01-01 12:05:12'),
+(13, 38, 'UAH', '8731937887002919', 0.00, 'online', '2024-05-06 00:00:00');
 
 --
 -- Triggers `account`
@@ -247,7 +289,25 @@ INSERT INTO `client` (`client_id`, `first_name`, `last_name`, `phone_number`, `e
 (24, 'test17', 'test17', 'test17', 'test17@test17', '2024-04-04', 'test17'),
 (25, 'testRegisterPage', 'RegistePage', '+380663214321', 'testRegisterPage@exampl.com', '2024-04-25', 'pssqordpEGISTERpAGE'),
 (29, 'Oleksandr', 'Savchenko', '3123123123', 'example4@gmail.com', '2024-04-04', 'dfewdwedwed2d'),
-(30, 'test20', 'test20', 'test20', 'test20@test20', '2024-04-04', 'test20');
+(30, 'test20', 'test20', 'test20', 'test20@test20', '2024-04-04', 'test20'),
+(33, 'test001', 'test001', 'test001', 'test001@example.com', '2024-05-14', 'test001'),
+(34, 'test002', 'test002', 'test002', 'test002@example.com', '2024-05-14', 'test002'),
+(35, 'test003', 'test003', 'test003', 'test003@example.com', '2024-05-14', 'test003'),
+(36, 'test004', 'test004', 'test004', 'test004@example.com', '2024-05-14', 'test004'),
+(37, 'test005', 'test005', 'test005', 'test005@example.com', '2024-05-14', 'test005'),
+(38, 'test006', 'test006', 'test006', 'test006@example.com', '2024-05-04', 'test006');
+
+--
+-- Triggers `client`
+--
+DELIMITER $$
+CREATE TRIGGER `create_default_account_upon_register` AFTER INSERT ON `client` FOR EACH ROW BEGIN
+    INSERT INTO account(client_id, account_title, account_number, account_balance, account_status, account_startdate)
+    VALUES
+    (NEW.client_id, 'UAH', generateCardNumber(), 0.00, 'online', NOW());
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -290,13 +350,21 @@ CREATE TABLE `credit` (
 --
 
 INSERT INTO `credit` (`credit_id`, `account_id`, `credit_size`, `credit_startdate`, `credit_enddate`, `credit_status`, `credit_percent`, `credit_limit`) VALUES
-(1, 1, 25000.00, '2024-01-01 12:00:00', '2026-01-01 11:59:59', 'open', 2.50, 1000000.00),
+(1, 1, 36207.46, '2024-01-01 12:00:00', '2026-01-01 11:59:59', 'open', 2.50, 1000000.00),
 (2, 5, 100000.00, '2024-03-10 15:14:26', '2024-03-10 15:14:25', 'paid', 1.50, 1000000.00),
-(3, 2, 20000.00, '2022-04-04 12:00:00', '2024-04-04 12:00:00', 'open', 0.00, 50000.00);
+(3, 2, 20000.00, '2022-04-04 12:00:00', '2024-04-04 12:00:00', 'open', 0.00, 50000.00),
+(4, 13, 10000.00, '2024-06-05 12:00:00', '2024-07-05 12:00:00', 'open', 2.50, 1000000.00);
 
 --
 -- Triggers `credit`
 --
+DELIMITER $$
+CREATE TRIGGER `auto_insert_credit_enddate_and_percent` BEFORE INSERT ON `credit` FOR EACH ROW BEGIN
+	SET NEW.credit_enddate = DATE_ADD(NEW.credit_startdate, INTERVAL 1 YEAR);
+    SET NEW.credit_percent = 2.50;
+    END
+$$
+DELIMITER ;
 DELIMITER $$
 CREATE TRIGGER `check_credit_limit` BEFORE INSERT ON `credit` FOR EACH ROW BEGIN
 	IF NEW.credit_size > NEW.credit_limit THEN
@@ -510,19 +578,19 @@ ALTER TABLE `transaction`
 -- AUTO_INCREMENT for table `account`
 --
 ALTER TABLE `account`
-  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `client`
 --
 ALTER TABLE `client`
-  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `credit`
 --
 ALTER TABLE `credit`
-  MODIFY `credit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `credit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `deposit`
@@ -564,6 +632,18 @@ ALTER TABLE `deposit`
 ALTER TABLE `transaction`
   ADD CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`sender_id`) REFERENCES `account` (`account_id`),
   ADD CONSTRAINT `transaction_ibfk_2` FOREIGN KEY (`resipient_id`) REFERENCES `account` (`account_id`);
+
+DELIMITER $$
+--
+-- Events
+--
+CREATE DEFINER=`root`@`localhost` EVENT `calculate_credit_mounth` ON SCHEDULE EVERY 1 MONTH STARTS '2024-05-06 18:39:35' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
+    UPDATE credit
+    SET credit_size = credit_size + ((credit_size * credit_percent)/100)
+    WHERE DATEDIFF(NOW(), credit_startdate) > 0 AND credit_status = 'open';
+END$$
+
+DELIMITER ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
