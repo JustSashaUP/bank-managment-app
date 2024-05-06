@@ -1,10 +1,13 @@
 package account.database;
 
+import account.operations.credit.database.Credit;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 public class Account implements Serializable {
     @Serial
@@ -17,6 +20,7 @@ public class Account implements Serializable {
     private double balance;
     private String status;
     private java.sql.Date startDate;
+    private List<Credit> creditList;
 
     public Account() {}
 
@@ -37,6 +41,38 @@ public class Account implements Serializable {
         this.balance = balance;
         this.status = status;
         this.startDate = startDate;
+    }
+
+    public List<Credit> getCredits() {
+        return creditList;
+    }
+
+    public void setCredits(List<Credit> credits) {
+        this.creditList = credits;
+    }
+
+    public void setCredit(int i, Credit credit)
+    {
+        creditList.set(i, credit);
+    }
+
+    public Credit getCredit(int i)
+    {
+        return creditList.get(i);
+    }
+
+    public boolean addCredit(Credit credit)
+    {
+        if (creditList.contains(credit))
+        {
+            return false;
+        }
+        return creditList.add(credit);
+    }
+
+    public int creditsCount()
+    {
+        return creditList.size();
     }
 
     public int getId() {

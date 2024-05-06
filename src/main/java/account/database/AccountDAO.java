@@ -3,6 +3,7 @@ package account.database;
 import database.DBWorker;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import user.database.UserDAO;
 import user.servlet.LoginServlet;
 import utils.fileutil.LoggerUtils;
 
@@ -24,7 +25,7 @@ public class AccountDAO {
     private static Logger logger;
     static
     {
-        logger = LogManager.getLogger(LoginServlet.class);
+        logger = LogManager.getLogger(AccountDAO.class);
         LoggerUtils.setLogger(logger);
     }
     public static List<Account> getAccountsDataByClientId(int id)
@@ -64,36 +65,5 @@ public class AccountDAO {
             System.err.println("Message: " + e.getMessage());
         }
         return accountList;
-    }
-
-    public static int setAccountDataByClientId(int clientId)
-    {
-        account = new Account();
-        worker = new DBWorker();
-
-        logger.info("SET account data from database");
-
-        int result = 0;
-
-        try(PreparedStatement preparedStatement = worker.getConnection().prepareStatement(INSERT_ACCOUNT_SQL))
-        {
-            preparedStatement.setString(2, account.getTitle());
-            preparedStatement.setString(3, account.getNumber());
-            preparedStatement.setString(4, account.getNumber());
-            preparedStatement.setDouble(5, account.getBalance());
-            preparedStatement.setDate(6, account.getStartDate());
-            logger.info(preparedStatement);
-
-            result = preparedStatement.executeUpdate();
-        }
-        catch(SQLException e)
-        {
-            e.printStackTrace(System.err);
-            logger.error("GET client data from database ERROR!");
-            System.err.println("SQLState: " + e.getSQLState());
-            System.err.println("Error code: " + e.getErrorCode());
-            System.err.println("Message: " + e.getMessage());
-        }
-        return result;
     }
 }
