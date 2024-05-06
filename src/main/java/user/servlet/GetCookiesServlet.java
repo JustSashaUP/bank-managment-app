@@ -14,9 +14,9 @@ public class GetCookiesServlet extends HttpServlet {
     private static Logger logger;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        logger = LogManager.getLogger(LoginServlet.class);
+        logger = LogManager.getLogger(GetCookiesServlet.class);
         LoggerUtils.setLogger(logger);
-        logger.info("Start GetCookiesServlet");
+        logger.info("Start GetCookiesServlet🚀");
 
         Cookie[] cookies = req.getCookies();
         HttpSession session = req.getSession();
@@ -36,7 +36,7 @@ public class GetCookiesServlet extends HttpServlet {
                 }
             }
         }
-        logger.info("GetCookiesServlet finished");
+        logger.info("GetCookiesServlet finished✅");
         resp.sendRedirect("homePage.jsp");
     }
 

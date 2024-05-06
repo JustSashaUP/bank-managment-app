@@ -22,7 +22,7 @@ public class LogoutServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger = LogManager.getLogger(LogoutServlet.class);
         LoggerUtils.setLogger(logger);
-        logger.info("Start LogoutServlet");
+        logger.info("Start LogoutServlet🚀");
         try(PrintWriter out = resp.getWriter()){
             if(req.getSession().getAttribute("currentUserSession") != null) {
                 req.getSession().removeAttribute("currentUserSession");
@@ -31,6 +31,6 @@ public class LogoutServlet extends HttpServlet {
                 resp.sendRedirect("homePage.jsp");
             }
         }
-        logger.info("LogoutServlet finished");
+        logger.info("LogoutServlet finished✅");
     }
 }

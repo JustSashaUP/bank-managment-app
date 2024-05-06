@@ -1,5 +1,6 @@
 package user.servlet;
 
+import account.database.AccountDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import user.database.User;
@@ -34,7 +35,7 @@ public class RegisterServlet extends HttpServlet {
         logger = LogManager.getLogger(RegisterServlet.class);
         LoggerUtils.setLogger(logger);
 
-        logger.info("start RegisterServlet");
+        logger.info("start RegisterServlet🚀");
 
         user.setFirstName(req.getParameter("firstName"));
         user.setLastName(req.getParameter("lastName"));
@@ -47,7 +48,7 @@ public class RegisterServlet extends HttpServlet {
             {
                 userDAO.registerUser(user);
                 logger.info("Register successfully!");
-                req.getRequestDispatcher("register_success.jsp").forward(req, resp);
+                req.getRequestDispatcher("login.jsp").forward(req, resp);
                 return;
             }
         } catch (ParseException e) {
@@ -57,6 +58,6 @@ public class RegisterServlet extends HttpServlet {
         logger.warn("User already member!");
         req.setAttribute("errorMessage", "User already member!");
         req.getRequestDispatcher("register.jsp").forward(req, resp);
-        logger.info("RegisterServlet finished");
+        logger.info("RegisterServlet finished✅");
     }
 }

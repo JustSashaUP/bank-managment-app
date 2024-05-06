@@ -31,7 +31,7 @@ public class LoginServlet extends HttpServlet {
         logger = LogManager.getLogger(LoginServlet.class);
         LoggerUtils.setLogger(logger);
 
-        logger.info("start LoginServlet");
+        logger.info("start LoginServlet🚀");
 
         user.setEmail(req.getParameter("email"));
         user.setPassword(req.getParameter("password"));
@@ -62,6 +62,6 @@ public class LoginServlet extends HttpServlet {
             req.setAttribute("errorMessage", "Incorrect email or password. Please try again.");
             req.getRequestDispatcher("login.jsp").include(req, resp);
         }
-        logger.info("LoginServlet finished");
+        logger.info("LoginServlet finished✅");
     }
 }

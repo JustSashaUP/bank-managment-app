@@ -17,9 +17,9 @@ public class SetCookiesServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        logger = LogManager.getLogger(LoginServlet.class);
+        logger = LogManager.getLogger(SetCookiesServlet.class);
         LoggerUtils.setLogger(logger);
-        logger.info("Start SetCookiesServlet");
+        logger.info("Start SetCookiesServlet🚀");
 
         userDAO = new UserDAO();
 
@@ -37,7 +37,7 @@ public class SetCookiesServlet extends HttpServlet {
         resp.addCookie(cookie);
         resp.addCookie(cookieAccount);
 
-        logger.info("SetCookiesServlet finished");
+        logger.info("SetCookiesServlet finished✅");
         resp.sendRedirect("homePage.jsp");
         //req.getRequestDispatcher("/getCookiesServlet").forward(req, resp);
     }
