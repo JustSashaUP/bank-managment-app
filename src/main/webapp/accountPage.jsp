@@ -68,6 +68,7 @@ contentType="text/html; charset=ISO-8859-1"
         <div>
             Balance: <%= currentAccount.getBalance() %>
         </div>
+        <a href="homePage.jsp" style="text-decoration: none">Home</a>
     </div>
     <%-- Navigation if more than one account --%>
     <div class="navigation">
