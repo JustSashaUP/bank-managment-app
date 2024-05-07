@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2024 at 06:22 PM
+-- Generation Time: May 07, 2024 at 12:09 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -353,14 +353,16 @@ INSERT INTO `credit` (`credit_id`, `account_id`, `credit_size`, `credit_startdat
 (1, 1, 36207.46, '2024-01-01 12:00:00', '2026-01-01 11:59:59', 'open', 2.50, 1000000.00),
 (2, 5, 100000.00, '2024-03-10 15:14:26', '2024-03-10 15:14:25', 'paid', 1.50, 1000000.00),
 (3, 2, 20000.00, '2022-04-04 12:00:00', '2024-04-04 12:00:00', 'open', 0.00, 50000.00),
-(4, 13, 10000.00, '2024-06-05 12:00:00', '2024-07-05 12:00:00', 'open', 2.50, 1000000.00);
+(5, 13, 10000.00, '2024-05-07 13:06:39', '2025-05-07 13:06:39', '', 2.50, 1000000.00);
 
 --
 -- Triggers `credit`
 --
 DELIMITER $$
-CREATE TRIGGER `auto_insert_credit_enddate_and_percent` BEFORE INSERT ON `credit` FOR EACH ROW BEGIN
+CREATE TRIGGER `auto_insert_credit_startANDenddate_status_percent` BEFORE INSERT ON `credit` FOR EACH ROW BEGIN
+	SET NEW.credit_startdate = NOW();
 	SET NEW.credit_enddate = DATE_ADD(NEW.credit_startdate, INTERVAL 1 YEAR);
+    SET NEW.credit_status = 'open';
     SET NEW.credit_percent = 2.50;
     END
 $$
@@ -404,17 +406,18 @@ CREATE TABLE `deposit` (
   `deposit_size` decimal(19,2) NOT NULL,
   `deposit_startdate` datetime NOT NULL,
   `deposit_enddate` datetime NOT NULL,
-  `deposit_percent` decimal(19,2) NOT NULL
+  `deposit_percent` decimal(19,2) NOT NULL,
+  `deposit_status` enum('open','closed') DEFAULT 'open'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `deposit`
 --
 
-INSERT INTO `deposit` (`deposit_id`, `account_id`, `deposit_size`, `deposit_startdate`, `deposit_enddate`, `deposit_percent`) VALUES
-(1, 5, 150000.00, '2021-12-12 15:00:00', '2027-12-12 15:00:00', 2.50),
-(2, 7, 25000.00, '2020-09-01 11:22:30', '2024-09-01 11:22:00', 2.50),
-(3, 6, 200000.00, '2023-01-01 19:23:23', '2030-01-01 19:23:23', 2.50);
+INSERT INTO `deposit` (`deposit_id`, `account_id`, `deposit_size`, `deposit_startdate`, `deposit_enddate`, `deposit_percent`, `deposit_status`) VALUES
+(1, 5, 150000.00, '2021-12-12 15:00:00', '2027-12-12 15:00:00', 2.50, 'open'),
+(2, 7, 25000.00, '2020-09-01 11:22:30', '2024-09-01 11:22:00', 2.50, 'open'),
+(3, 6, 200000.00, '2023-01-01 19:23:23', '2030-01-01 19:23:23', 2.50, 'open');
 
 --
 -- Triggers `deposit`
@@ -590,7 +593,7 @@ ALTER TABLE `client`
 -- AUTO_INCREMENT for table `credit`
 --
 ALTER TABLE `credit`
-  MODIFY `credit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `credit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `deposit`
@@ -637,10 +640,16 @@ DELIMITER $$
 --
 -- Events
 --
-CREATE DEFINER=`root`@`localhost` EVENT `calculate_credit_mounth` ON SCHEDULE EVERY 1 MONTH STARTS '2024-05-06 18:39:35' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
+CREATE DEFINER=`root`@`localhost` EVENT `calculate_credit_month` ON SCHEDULE EVERY 1 MONTH STARTS '2024-05-06 18:39:35' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
     UPDATE credit
     SET credit_size = credit_size + ((credit_size * credit_percent)/100)
     WHERE DATEDIFF(NOW(), credit_startdate) > 0 AND credit_status = 'open';
+END$$
+
+CREATE DEFINER=`root`@`localhost` EVENT `calculate_deposit_month` ON SCHEDULE EVERY 1 MONTH STARTS '2024-05-06 18:39:35' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
+    UPDATE deposit
+    SET deposit_size = deposit_size + ((deposit_size * deposit_percent)/100)
+    WHERE DATEDIFF(NOW(), deposit_startdate) > 0 AND deposit_status = 'open';
 END$$
 
 DELIMITER ;
