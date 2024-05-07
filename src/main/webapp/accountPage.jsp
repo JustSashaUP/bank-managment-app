@@ -69,8 +69,15 @@ contentType="text/html; charset=ISO-8859-1"
             Balance: <%= currentAccount.getBalance() %>
         </div>
         <a href="homePage.jsp" style="text-decoration: none">Home</a>
+
+        <!--CREDIT INFORMATION-->
+        <!--DEPOSIT INFORMATION-->
+        <!--TRANSACTION HISTORY-->
+
     </div>
+
     <%-- Navigation if more than one account --%>
+
     <div class="navigation">
         <% if (currentUser.accountsCount() > 1) { %>
             <%
