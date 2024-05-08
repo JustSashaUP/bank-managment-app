@@ -59,9 +59,17 @@ for(Cookie cookie : cookies){
     <a href="accountPage.jsp">show accounts</a>
 </div>
 <br>
+        <button onclick="openAccountForm()">Update</button>
     <form id="logoutForm" action="logoutServlet" method="post">
         <input type="submit" value="Logout">
     </form>
 </div>
+<script>
+    function openAccountForm() {
+        var width = 400;
+        var height = 300;
+        window.open("clientForm.jsp", "_blank", "width=" + width + ", height=" + height);
+    }
+</script>
 </body>
 </html>
