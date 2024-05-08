@@ -3,7 +3,7 @@
   <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
   <html>
   <head>
-    <title>Registration Form</title>
+    <title>Login Form</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <style>
       .container {
