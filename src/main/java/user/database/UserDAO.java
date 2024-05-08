@@ -23,6 +23,7 @@ public class UserDAO {
     private static final String SELECT_CLIENT_EMAIL_SQL = "select * from client where email = ?";
     private static final String GET_PROCEDURE_CLIENT_DATA = "call getClientData(?)";
     private static final String GET_PROCEDURE_CLIENT_ID = "call getClientIdByEmail(?)";
+    private static final String UPDATE_CLIENT_SQL = "call updateClientData(?, ?, ?)";
     private static User user;
     private static Logger logger;
     static
@@ -49,7 +50,7 @@ public class UserDAO {
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace(System.err);
-            logger.error("SET client data from database ERROR!");
+            logger.error("SET client data from database ERROR❌!");
             System.err.println("SQLState: " + e.getSQLState());
             System.err.println("Error code: " + e.getErrorCode());
             System.err.println("Message: " + e.getMessage());
@@ -76,7 +77,7 @@ public class UserDAO {
         catch(SQLException e)
         {
             e.printStackTrace(System.err);
-            logger.error("GET client data from database ERROR!");
+            logger.error("GET client data from database ERROR❌!");
             System.err.println("SQLState: " + e.getSQLState());
             System.err.println("Error code: " + e.getErrorCode());
             System.err.println("Message: " + e.getMessage());
@@ -102,7 +103,7 @@ public class UserDAO {
         catch(SQLException e)
         {
             e.printStackTrace(System.err);
-            logger.error("GET client data from database ERROR!");
+            logger.error("GET client data from database ERROR❌!");
             System.err.println("SQLState: " + e.getSQLState());
             System.err.println("Error code: " + e.getErrorCode());
             System.err.println("Message: " + e.getMessage());
@@ -124,7 +125,7 @@ public class UserDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace(System.err);
-            logger.error("GET client_id data from database ERROR!");
+            logger.error("GET client_id data from database ERROR❌!");
             System.err.println("SQLState: " + e.getSQLState());
             System.err.println("Error code: " + e.getErrorCode());
             System.err.println("Message: " + e.getMessage());
@@ -151,14 +152,38 @@ public class UserDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace(System.err);
-            logger.error("GET client data from database ERROR!");
+            logger.error("GET client data from database ERROR❌!");
             System.err.println("SQLState: " + e.getSQLState());
             System.err.println("Error code: " + e.getErrorCode());
             System.err.println("Message: " + e.getMessage());
         } catch (ParseException e) {
-            logger.error("GET client data from database ERROR!");
+            logger.error("GET client data from database ERROR❌!");
             System.err.println("Message: " + e.getMessage());
         }
         return user;
+    }
+
+    public static int updateUser(int id, String email, String password)
+    {
+        DBWorker worker = new DBWorker();
+        logger.info("UPDATE and SET client data to database");
+
+        int result = 0;
+
+        try(PreparedStatement preparedStatement = worker.getConnection().prepareStatement(UPDATE_CLIENT_SQL)) {
+            preparedStatement.setInt(1, id);
+            preparedStatement.setString(2, email);
+            preparedStatement.setString(3, password);
+            logger.info(preparedStatement);
+
+            result = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+            logger.error("UPDATE and SET client data to database ERROR❌!");
+            System.err.println("SQLState: " + e.getSQLState());
+            System.err.println("Error code: " + e.getErrorCode());
+            System.err.println("Message: " + e.getMessage());
+        }
+        return result;
     }
 }
