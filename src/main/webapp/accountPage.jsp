@@ -7,7 +7,7 @@ contentType="text/html; charset=ISO-8859-1"
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Home</title>
+<title>Account</title>
     <style>
         body {
             margin: 0;
@@ -29,10 +29,14 @@ contentType="text/html; charset=ISO-8859-1"
             text-align: center;
         }
 
-        .navigation button {
-            padding: 5px 10px;
+        .arrow-button {
+            padding: 5px;
             margin: 0 5px;
             cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 20px;
+            color: green;
         }
     </style>
 </head>
@@ -78,24 +82,50 @@ contentType="text/html; charset=ISO-8859-1"
 
     <%-- Navigation if more than one account --%>
 
-    <div class="navigation">
-        <% if (currentUser.accountsCount() > 1) { %>
-            <%
-                for (int i = 0; i < currentUser.accountsCount(); i++) {
-                    if (i != currentAccountIndex) {
-            %>
-                        <button onclick="changeAccount(<%= i %>)">Account <%= i + 1 %></button>
-            <%
-                    }
-                }
-            %>
-        <% } %>
+<div class="navigation">
+    <%
+    if (currentUser.accountsCount() > 1) {
+        if (currentAccountIndex != 0) {
+    %>
+    <button onclick="changeAccount(<%= currentAccountIndex - 1 %>)" class="arrow-button">&#8249;</button>
+    <%
+        }
+        if (currentAccountIndex != currentUser.accountsCount() - 1) {
+    %>
+    <button onclick="changeAccount(<%= currentAccountIndex + 1 %>)" class="arrow-button">&#8250;</button>
+    <%
+        }
+    }
+    %>
+</div>
+    <div>
+    <%
+
+    // checking the number of accounts,
+    // if the number is maximum, then the button is hidden
+
+        if (currentUser.accountsCount() < 3)
+        {
+    %>
+        <button onclick="openAccountForm()">New Account</button>
+    <%
+        }
+    %>
     </div>
 </div>
 <script>
     function changeAccount(index) {
         document.cookie = "currentAccountIndex=" + index;
         location.reload();
+    }
+</script>
+<script>
+    function openAccountForm() {
+        var width = 400;
+        var height = 300;
+        var left = (window.innerWidth - width) / 2;
+        var top = (window.innerHeight - height) / 2;
+        window.open("accountForm.jsp", "_blank", "width=" + width + ", height=" + height + ", left=" + left + ", top=" + top);
     }
 </script>
 </body>
