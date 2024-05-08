@@ -62,12 +62,12 @@ public class AccountDAO {
         catch(SQLException e)
         {
             e.printStackTrace(System.err);
-            logger.error("GET client data from database ERROR!");
+            logger.error("GET client data from database ERROR❌!");
             System.err.println("SQLState: " + e.getSQLState());
             System.err.println("Error code: " + e.getErrorCode());
             System.err.println("Message: " + e.getMessage());
         } catch (ParseException e) {
-            logger.error("GET account data from database ERROR!");
+            logger.error("GET account data from database ERROR❌!");
             System.err.println("Message: " + e.getMessage());
         }
         return accountList;
@@ -86,7 +86,7 @@ public class AccountDAO {
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace(System.err);
-            logger.error("INSERT account data to database ERROR!");
+            logger.error("INSERT account data to database ERROR❌!");
             System.err.println("SQLState: " + e.getSQLState());
             System.err.println("Error code: " + e.getErrorCode());
             System.err.println("Message: " + e.getMessage());
