@@ -7,7 +7,9 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class User implements Serializable {
     @Serial
@@ -136,6 +138,34 @@ public class User implements Serializable {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date utilDate = dateFormat.parse(date);
         return new java.sql.Date(utilDate.getTime());
+    }
+
+    public Set<String> getAvailableTitles() {
+        Set<String> availableTitles = new HashSet<>();
+        List<Account> accounts = this.getAccounts();
+
+        boolean hasUSD = false;
+        boolean hasEUR = false;
+
+        for (Account account : accounts) {
+            String title = account.getTitle();
+            if ("USD".equals(title)) {
+                hasUSD = true;
+            } else if ("EUR".equals(title)) {
+                hasEUR = true;
+            }
+        }
+
+        if (hasUSD && !hasEUR) {
+            availableTitles.add("EUR");
+        } else if (!hasUSD && hasEUR) {
+            availableTitles.add("USD");
+        } else if (!hasUSD && !hasEUR) {
+            availableTitles.add("USD");
+            availableTitles.add("EUR");
+        }
+
+        return availableTitles;
     }
 
     @Override
