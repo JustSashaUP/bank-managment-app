@@ -58,7 +58,7 @@ public class LoginServlet extends HttpServlet {
         }
         else
         {
-            logger.warn("Login invalid data!");
+            logger.warn("Login invalid data❌");
             req.setAttribute("errorMessage", "Incorrect email or password. Please try again.");
             req.getRequestDispatcher("login.jsp").include(req, resp);
         }
