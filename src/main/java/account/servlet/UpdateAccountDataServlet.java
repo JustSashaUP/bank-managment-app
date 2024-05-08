@@ -30,11 +30,12 @@ public class UpdateAccountDataServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        logger.info("Update accounts");
+        logger.info("start UpdateAccountServlet🚀");
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("currentUserSession");
         List<Account> accounts = AccountDAO.getAccountsDataByClientId(user.getId());
         user.setAccounts(accounts);
         session.setAttribute("currentUserSession", user);
+        logger.info("UpdateAccountServlet finished✅");
     }
 }
