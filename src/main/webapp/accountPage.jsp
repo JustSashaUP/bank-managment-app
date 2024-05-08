@@ -123,9 +123,7 @@ contentType="text/html; charset=ISO-8859-1"
     function openAccountForm() {
         var width = 400;
         var height = 300;
-        var left = (window.innerWidth - width) / 2;
-        var top = (window.innerHeight - height) / 2;
-        window.open("accountForm.jsp", "_blank", "width=" + width + ", height=" + height + ", left=" + left + ", top=" + top);
+        window.open("accountForm.jsp", "_blank", "width=" + width + ", height=" + height);
     }
 </script>
 </body>

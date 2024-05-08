@@ -13,7 +13,6 @@ contentType="text/html; charset=ISO-8859-1"
     body {
         margin: 0;
         padding: 0;
-        resize: none;
     }
 
     .container {
