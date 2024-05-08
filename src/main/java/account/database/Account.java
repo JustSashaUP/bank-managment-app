@@ -1,13 +1,16 @@
 package account.database;
 
 import account.operations.credit.database.Credit;
+import user.database.User;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Account implements Serializable {
     @Serial

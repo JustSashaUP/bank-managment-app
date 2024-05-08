@@ -3,10 +3,12 @@ package account.database;
 import database.DBWorker;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import user.database.User;
 import user.database.UserDAO;
 import user.servlet.LoginServlet;
 import utils.fileutil.LoggerUtils;
 
+import javax.servlet.http.HttpSession;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,6 +21,10 @@ public class AccountDAO {
             "(`client_id`, `account_title`, `account_number`, `account_balance`, `account_status`, `account_startDate`) \n"
             + "VALUES \n"
             + "(?,?,?,?,?,?);";
+    private static final String INSERT_NEW_ACCOUNT_SQL = "INSERT INTO `account`" + "\n"
+            + "(`client_id`, `account_title`, `account_number`, `account_balance`, `account_status`, `account_startdate`) \n"
+            + "VALUES \n"
+            + "(?, ?, generateCardNumber(), 0.00, 'online', NOW());";
     private static final String GET_PROCEDURE_ACCOUNT_SQL = "call getAccountDataByClientId(?)";
     private static Account account;
     private static DBWorker worker;
@@ -65,5 +71,26 @@ public class AccountDAO {
             System.err.println("Message: " + e.getMessage());
         }
         return accountList;
+    }
+
+    public static int createAccount(User currentUserFromSession, String currency)
+    {
+        worker = new DBWorker();
+
+        int result = 0;
+
+        try(PreparedStatement preparedStatement = worker.getConnection().prepareStatement(INSERT_NEW_ACCOUNT_SQL)) {
+            preparedStatement.setInt(1, currentUserFromSession.getId());
+            preparedStatement.setString(2, currency);
+
+            result = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.err);
+            logger.error("INSERT account data to database ERROR!");
+            System.err.println("SQLState: " + e.getSQLState());
+            System.err.println("Error code: " + e.getErrorCode());
+            System.err.println("Message: " + e.getMessage());
+        }
+        return result;
     }
 }
