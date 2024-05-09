@@ -67,8 +67,10 @@ for(Cookie cookie : cookies){
 <script>
     function openAccountForm() {
         var width = 400;
-        var height = 300;
-        window.open("clientForm.jsp", "_blank", "width=" + width + ", height=" + height);
+        var height = 150;
+        var left = (screen.width - width) / 2;
+        var top = (screen.height - height) / 2;
+        window.open("clientForm.jsp", "_blank", "width=" + width + ", height=" + height + ", left=" + left + ", top=" + top);
     }
 </script>
 </body>

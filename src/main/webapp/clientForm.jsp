@@ -14,11 +14,8 @@ pageEncoding="ISO-8859-1" import="account.database.Account, user.database.User"
     }
 
     .container {
-        width: 400px;
-        height: 300px;
         margin: 0 auto;
         padding: 20px;
-        background-color: #f0f0f0;
     }
     </style>
   </head>
