@@ -34,7 +34,7 @@ public class UserDAO {
     public int registerUser(User user)
     {
         DBWorker worker = new DBWorker();
-        logger.info("SET client data from database");
+        logger.info("INSERT client data to database✔️");
 
         int result = 0;
 
@@ -50,7 +50,7 @@ public class UserDAO {
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace(System.err);
-            logger.error("SET client data from database ERROR❌!");
+            logger.error("INSERT client data to database ERROR❌!");
             System.err.println("SQLState: " + e.getSQLState());
             System.err.println("Error code: " + e.getErrorCode());
             System.err.println("Message: " + e.getMessage());
@@ -61,7 +61,7 @@ public class UserDAO {
     public boolean loginValidate(User user)
     {
         DBWorker worker = new DBWorker();
-        logger.info("GET client data from database");
+        logger.info("GET client data from database✔️");
 
         boolean status = false;
 
@@ -88,7 +88,7 @@ public class UserDAO {
     public boolean registerValidate(User user)
     {
         DBWorker worker = new DBWorker();
-        logger.info("GET client data from database");
+        logger.info("GET client data from database✔️");
 
         boolean status = false;
 
@@ -115,7 +115,7 @@ public class UserDAO {
     {
         DBWorker worker = new DBWorker();
         user = new User();
-        logger.info("GET client_id data from database");
+        logger.info("GET client_id data from database✔️");
 
         try (PreparedStatement statement = worker.getConnection().prepareStatement(GET_PROCEDURE_CLIENT_ID)) {
             statement.setString(1, userEmail);
@@ -137,7 +137,7 @@ public class UserDAO {
     {
         DBWorker worker = new DBWorker();
         user = new User();
-        logger.info("GET client_id data from database");
+        logger.info("GET client_id data from database✔️");
 
         try (PreparedStatement statement = worker.getConnection().prepareStatement(GET_PROCEDURE_CLIENT_DATA)) {
             statement.setString(1, String.valueOf(id));
@@ -166,7 +166,7 @@ public class UserDAO {
     public static int updateUser(int id, String email, String password)
     {
         DBWorker worker = new DBWorker();
-        logger.info("UPDATE and SET client data to database");
+        logger.info("UPDATE and SET client data to database✔️");
 
         int result = 0;
 

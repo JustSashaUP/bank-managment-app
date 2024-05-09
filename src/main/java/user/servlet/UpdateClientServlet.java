@@ -38,8 +38,10 @@ public class UpdateClientServlet extends HttpServlet {
         }
         catch(Exception e)
         {
-            logger.error("Login error❌: " + e.getMessage());
+            logger.error("Update client data servlet ERROR❌: " + e.getMessage());
         }
         logger.info("UpdateClientServlet finished✅");
+        resp.setContentType("text/html;charset=UTF-8");
+        resp.getWriter().println("<html><head><script>window.opener.location.reload();window.close();</script></head></html>");
     }
 }

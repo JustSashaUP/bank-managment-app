@@ -40,7 +40,7 @@ public class AccountDAO {
         account = new Account();
         worker = new DBWorker();
 
-        logger.info("GET account data from database");
+        logger.info("GET account data from database✔️");
 
         try(PreparedStatement preparedStatement = worker.getConnection().prepareStatement(GET_PROCEDURE_ACCOUNT_SQL))
         {
@@ -76,6 +76,8 @@ public class AccountDAO {
     public static int createAccount(User currentUserFromSession, String currency)
     {
         worker = new DBWorker();
+
+        logger.info("INSERT account data to database✔️");
 
         int result = 0;
 

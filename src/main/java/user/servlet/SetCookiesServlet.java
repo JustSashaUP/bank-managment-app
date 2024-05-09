@@ -28,8 +28,8 @@ public class SetCookiesServlet extends HttpServlet {
         Cookie cookieAccount = new Cookie("currentAccountIndex", "0");
         Cookie cookie = new Cookie("auntId", auntId);
 
-        logger.info("SET user cookies: " + auntId);
-        logger.info("SET account cookies: " + cookieAccount.getValue());
+        logger.info("SET user cookies✔️: " + auntId);
+        logger.info("SET account cookies✔️: " + cookieAccount.getValue());
 
         cookie.setMaxAge(-1);
         cookieAccount.setMaxAge(-1);

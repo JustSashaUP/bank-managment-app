@@ -37,8 +37,8 @@ public class CreateAccountServlet extends HttpServlet {
         }
         catch (Exception e)
         {
-            logger.error("Login error❌: " + e.getMessage());
-            System.out.println("Login error❌: " + e.getMessage());
+            logger.error("Creating account servlet error❌: " + e.getMessage());
+            System.out.println("Creating account servlet error❌: " + e.getMessage());
         }
         logger.info("CreateAccountServlet finished✅");
         resp.setContentType("text/html;charset=UTF-8");

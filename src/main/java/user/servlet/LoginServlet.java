@@ -43,12 +43,12 @@ public class LoginServlet extends HttpServlet {
         }
         catch(Exception e)
         {
-            logger.error("Login error: " + e.getMessage());
-            System.out.println("Login error: " + e.getMessage());
+            logger.error("Login ERROR❌: " + e.getMessage());
+            System.out.println("Login ERROR❌: " + e.getMessage());
         }
         if (loginStatus)
         {
-            logger.info("Creating session...");
+            logger.info("Creating session...✔️");
             //CREATING SESSION AND COOKIES
             HttpSession session = req.getSession();
             session.setAttribute("currentUserSession",

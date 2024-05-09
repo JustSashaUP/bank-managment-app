@@ -47,7 +47,7 @@ public class RegisterServlet extends HttpServlet {
             if (!(userDAO.registerValidate(user)))
             {
                 userDAO.registerUser(user);
-                logger.info("Register successfully!");
+                logger.info("Register successfully✅!");
                 req.getRequestDispatcher("login.jsp").forward(req, resp);
                 return;
             }
