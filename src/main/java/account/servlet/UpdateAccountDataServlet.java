@@ -2,6 +2,7 @@ package account.servlet;
 
 import account.database.Account;
 import account.database.AccountDAO;
+import account.operations.credit.database.Credit;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import user.database.User;
@@ -33,9 +34,12 @@ public class UpdateAccountDataServlet extends HttpServlet {
         logger.info("start UpdateAccountServlet🚀");
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("currentUserSession");
+
         List<Account> accounts = AccountDAO.getAccountsDataByClientId(user.getId());
+
         user.setAccounts(accounts);
         session.setAttribute("currentUserSession", user);
+
         logger.info("UpdateAccountServlet finished✅");
     }
 }

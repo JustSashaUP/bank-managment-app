@@ -1,16 +1,15 @@
 package account.database;
 
 import account.operations.credit.database.Credit;
-import user.database.User;
+import account.operations.deposit.database.Deposit;
+import account.operations.transaction.database.Transaction;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class Account implements Serializable {
     @Serial
@@ -24,6 +23,8 @@ public class Account implements Serializable {
     private String status;
     private java.sql.Date startDate;
     private List<Credit> creditList;
+    private List<Deposit> depositList;
+    private List<Transaction> transactionList;
 
     public Account() {}
 
@@ -76,6 +77,70 @@ public class Account implements Serializable {
     public int creditsCount()
     {
         return creditList.size();
+    }
+
+    public List<Deposit> getDeposits() {
+        return depositList;
+    }
+
+    public void setDeposits(List<Deposit> deposits) {
+        this.depositList = deposits;
+    }
+
+    public void setDeposit(int i, Deposit deposit)
+    {
+        depositList.set(i, deposit);
+    }
+
+    public Deposit getDeposit(int i)
+    {
+        return depositList.get(i);
+    }
+
+    public boolean addDeposit(Deposit deposit)
+    {
+        if (depositList.contains(deposit))
+        {
+            return false;
+        }
+        return depositList.add(deposit);
+    }
+
+    public int depositsCount()
+    {
+        return depositList.size();
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactionList;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactionList = transactions;
+    }
+
+    public void setTransaction(int i, Transaction transaction)
+    {
+        transactionList.set(i, transaction);
+    }
+
+    public Transaction getTransaction(int i)
+    {
+        return transactionList.get(i);
+    }
+
+    public boolean addTransaction(Transaction transaction)
+    {
+        if (transactionList.contains(transaction))
+        {
+            return false;
+        }
+        return transactionList.add(transaction);
+    }
+
+    public int transactionsCount()
+    {
+        return transactionList.size();
     }
 
     public int getId() {

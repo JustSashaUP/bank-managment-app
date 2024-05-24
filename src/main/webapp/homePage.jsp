@@ -59,13 +59,13 @@ for(Cookie cookie : cookies){
     <a href="accountPage.jsp">show accounts</a>
 </div>
 <br>
-        <button onclick="openAccountForm()">Update</button>
+        <button onclick="openClientForm()">Update</button>
     <form id="logoutForm" action="logoutServlet" method="post">
         <input type="submit" value="Logout">
     </form>
 </div>
 <script>
-    function openAccountForm() {
+    function openClientForm() {
         var width = 400;
         var height = 150;
         var left = (screen.width - width) / 2;

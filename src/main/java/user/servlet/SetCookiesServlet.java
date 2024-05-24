@@ -26,16 +26,24 @@ public class SetCookiesServlet extends HttpServlet {
         String auntId = String.format("%d", userDAO.getUserId(req.getParameter("email")));
 
         Cookie cookieAccount = new Cookie("currentAccountIndex", "0");
+        Cookie cookieCredit = new Cookie("currentCreditIndex", "0");
+        Cookie cookieDeposit = new Cookie("currentDepositIndex", "0");
         Cookie cookie = new Cookie("auntId", auntId);
 
         logger.info("SET user cookies✔️: " + auntId);
         logger.info("SET account cookies✔️: " + cookieAccount.getValue());
+        logger.info("SET credit cookies✔️: " + cookieCredit.getValue());
+        logger.info("SET deposit cookies✔️: " + cookieDeposit.getValue());
 
         cookie.setMaxAge(-1);
         cookieAccount.setMaxAge(-1);
+        cookieCredit.setMaxAge(-1);
+        cookieDeposit.setMaxAge(-1);
 
         resp.addCookie(cookie);
         resp.addCookie(cookieAccount);
+        resp.addCookie(cookieCredit);
+        resp.addCookie(cookieDeposit);
 
         logger.info("SetCookiesServlet finished✅");
         resp.sendRedirect("homePage.jsp");

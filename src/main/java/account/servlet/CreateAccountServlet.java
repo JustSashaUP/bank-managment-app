@@ -21,11 +21,13 @@ import java.sql.SQLException;
 @WebServlet("/createAccountServlet")
 public class CreateAccountServlet extends HttpServlet {
     private static Logger logger;
+    static
+    {
+        logger = LogManager.getLogger(CreateAccountServlet.class);
+        LoggerUtils.setLogger(logger);
+    }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        logger = LogManager.getLogger(LoginServlet.class);
-        LoggerUtils.setLogger(logger);
-
         logger.info("start CreateAccountServlet🚀");
 
         HttpSession currentUserSession = req.getSession();

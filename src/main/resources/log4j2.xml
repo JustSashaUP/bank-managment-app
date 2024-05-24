@@ -5,24 +5,12 @@
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
-
-        <!-- Rolling File Appender -->
-        <RollingFile name="RollingFile" fileName="./src/main/myLog.log"
-                     filePattern="./src/main/myLog-%d{MM-dd-yyyy}-%i.log">
-            <PatternLayout pattern="%d %p %c: %m%n"/>
-            <Policies>
-                <TimeBasedTriggeringPolicy />
-                <SizeBasedTriggeringPolicy size="100 MB"/>
-            </Policies>
-            <DefaultRolloverStrategy max="10"/>
-        </RollingFile>
-    </Appenders>
+</Appenders>
 
     <Loggers>
         <!-- Root Logger -->
         <Root level="INFO">
             <AppenderRef ref="Console"/>
-            <AppenderRef ref="RollingFile"/>
         </Root>
     </Loggers>
 </Configuration>

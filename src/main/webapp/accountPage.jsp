@@ -1,7 +1,7 @@
 <%@ page language="java"
 contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"
-    import="account.database.Account, user.database.User"
+    import="account.database.Account, user.database.User, account.operations.credit.database.Credit, account.operations.deposit.database.Deposit, account.operations.transaction.database.Transaction"
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -35,7 +35,7 @@ contentType="text/html; charset=ISO-8859-1"
             cursor: pointer;
             border: none;
             background: none;
-            font-size: 20px;
+            font-size: 50px;
             color: green;
         }
     </style>
@@ -43,6 +43,9 @@ contentType="text/html; charset=ISO-8859-1"
 <body>
 <%
     request.getRequestDispatcher("/updateAccountServlet").include(request, response);
+    request.getRequestDispatcher("/updateCreditServlet").include(request, response);
+    request.getRequestDispatcher("/updateDepositServlet").include(request, response);
+    request.getRequestDispatcher("/updateTransactionServlet").include(request, response);
     User currentUser = (User) session.getAttribute("currentUserSession");
 
     if (currentUser.getAccounts() == null || currentUser.accountsCount() == 0) {
@@ -50,12 +53,19 @@ contentType="text/html; charset=ISO-8859-1"
     }
 
     int currentAccountIndex = 0;
+    int currentCreditIndex = 0;
+    int currentDepositIndex = 0;
     Cookie[] cookies = request.getCookies();
     if (cookies != null) {
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals("currentAccountIndex")) {
                 currentAccountIndex = Integer.parseInt(cookie.getValue());
-                break;
+            }
+            if (cookie.getName().equals("currentCreditIndex")) {
+                currentCreditIndex = Integer.parseInt(cookie.getValue());
+            }
+            if (cookie.getName().equals("currentDepositIndex")) {
+                currentDepositIndex = Integer.parseInt(cookie.getValue());
             }
         }
     }
@@ -63,6 +73,7 @@ contentType="text/html; charset=ISO-8859-1"
 %>
 <div class="container">
     <div class="account-info">
+    <h2>Account <%= currentAccount.getTitle() %></h2>
         <div>
             Title: <%= currentAccount.getTitle() %>
         </div>
@@ -73,15 +84,73 @@ contentType="text/html; charset=ISO-8859-1"
             Balance: <%= currentAccount.getBalance() %>
         </div>
         <a href="homePage.jsp" style="text-decoration: none">Home</a>
-
-        <!--CREDIT INFORMATION-->
-        <!--DEPOSIT INFORMATION-->
-        <!--TRANSACTION HISTORY-->
-
     </div>
-
+    <div class="account-info">
+        <h2>Credit</h2>
+<%
+boolean creditFound = false;
+boolean isCreditHistoryEmpty = true;
+for (Credit credit : currentAccount.getCredits()) {
+    if (credit.getCreditStatus().equals("open") || credit.getCreditStatus().equals("overdue")) {
+        creditFound = true;
+%>
+        <div>
+            Amount: <%= credit.getCreditSize() %>
+        </div>
+        <div>
+            Percent: <%= credit.getCreditPercent() %>
+        </div>
+        <div>
+            Start date: <%= credit.getCreditStartDate() %>
+        </div>
+        <div>
+            End date: <%= credit.getCreditEndDate() %>
+        </div>
+        <div>
+            Status: <%= credit.getCreditStatus() %>
+        </div>
+<%
+    }
+}
+if (!creditFound) {
+%>
+        <div>No open or overdue credit data available</div>
+<%
+}
+%>
+        <h2>Deposit</h2>
+<%
+boolean depositFound = false;
+boolean isDepositHistoryEmpty = true;
+for (Deposit deposit : currentAccount.getDeposits()) {
+    if (deposit.getDepositStatus().equals("open")) {
+        depositFound = true;
+%>
+        <div>
+            Amount: <%= deposit.getDepositSize() %>
+        </div>
+        <div>
+            Percent: <%= deposit.getDepositPercent() %>
+        </div>
+        <div>
+            Start date: <%= deposit.getDepositStartDate() %>
+        </div>
+        <div>
+            End date: <%= deposit.getDepositEndDate() %>
+        </div>
+        <div>
+            Status: <%= deposit.getDepositStatus() %>
+        </div>
+<%
+    }
+}
+if (!depositFound) {
+%>
+        <div>No open deposit data available</div>
+<%
+}
+%>
     <%-- Navigation if more than one account --%>
-
 <div class="navigation">
     <%
     if (currentUser.accountsCount() > 1) {
@@ -98,9 +167,100 @@ contentType="text/html; charset=ISO-8859-1"
     }
     %>
 </div>
+    <h2>Credit History</h2>
+<%
+for (Credit credit : currentAccount.getCredits()) {
+    if (credit.getCreditStatus().equals("paid")) {
+    isCreditHistoryEmpty = false;
+%>
+        <div>
+            Amount: <%= credit.getCreditSize() %>
+        </div>
+        <div>
+            Percent: <%= credit.getCreditPercent() %>
+        </div>
+        <div>
+            Start date: <%= credit.getCreditStartDate() %>
+        </div>
+        <div>
+            End date: <%= credit.getCreditEndDate() %>
+        </div>
+        <div>
+            Status: <%= credit.getCreditStatus() %>
+        </div>
+        <br/>
+<%
+    }
+}
+if (isCreditHistoryEmpty)
+{
+    %>
+            <div>No credit history available</div>
+    <%
+}
+%>
+    <h2>Deposit History</h2>
+<%
+for (Deposit deposit : currentAccount.getDeposits()) {
+    if (deposit.getDepositStatus().equals("closed")) {
+    isDepositHistoryEmpty = false;
+%>
+        <div>
+            Amount: <%= deposit.getDepositSize() %>
+        </div>
+        <div>
+            Percent: <%= deposit.getDepositPercent() %>
+        </div>
+        <div>
+            Start date: <%= deposit.getDepositStartDate() %>
+        </div>
+        <div>
+            End date: <%= deposit.getDepositEndDate() %>
+        </div>
+        <div>
+            Status: <%= deposit.getDepositStatus() %>
+        </div>
+        <br/>
+<%
+    }
+}
+if (isDepositHistoryEmpty)
+{
+    %>
+            <div>No deposit history available</div>
+    <%
+}
+%>
+    <h2>Transaction History</h2>
+<%
+boolean isTransactionHistoryEmpty = currentAccount.getTransactions().isEmpty();
+if (isTransactionHistoryEmpty) {
+%>
+    <div>No transaction history available</div>
+<%
+} else {
+    for (Transaction transaction : currentAccount.getTransactions()) {
+%>
+        <div>
+            Amount: <%= transaction.getTransactionSize() %>
+        </div>
+        <div>
+            Type: <%= transaction.getTransactionType() %>
+        </div>
+        <div>
+            Status: <%= transaction.getTransactionStatus() %>
+        </div>
+        <div>
+            Date: <%= transaction.getTransactionDateTime() %>
+        </div>
+        <br/>
+<%
+    }
+}
+%>
+     </div>
     <div>
     <%
-
     // checking the number of accounts,
     // if the number is maximum, then the button is hidden
 
@@ -111,11 +271,41 @@ contentType="text/html; charset=ISO-8859-1"
     <%
         }
     %>
+    <%
+    // checking the number of credits,
+    // if the number is maximum, then the button is hidden
+
+        if (!creditFound)
+        {
+    %>
+        <button onclick="openCreditForm()">New Credit</button>
+    <%
+        }
+    %>
+    <%
+    // checking the number of deposits,
+    // if the number is maximum, then the button is hidden
+
+        if (!depositFound)
+        {
+    %>
+        <button onclick="openDepositForm()">New Deposit</button>
+    <%
+        }
+    %>
+    <button onclick="redirectToTransactionPage()">Send funds</button>
     </div>
 </div>
+<script type="text/javascript">
+    function redirectToTransactionPage() {
+        window.location.href = 'transactionPage.jsp';
+    }
+</script>
 <script>
     function changeAccount(index) {
         document.cookie = "currentAccountIndex=" + index;
+        document.cookie = "currentCreditIndex=" + index;
+        document.cookie = "currentDepositIndex=" + index;
         location.reload();
     }
 </script>
@@ -126,6 +316,20 @@ contentType="text/html; charset=ISO-8859-1"
         var left = (screen.width - width) / 2;
         var top = (screen.height - height) / 2;
         window.open("accountForm.jsp", "_blank", "width=" + width + ", height=" + height + ", left=" + left + ", top=" + top);
+    }
+    function openCreditForm() {
+        var width = 400;
+        var height = 150;
+        var left = (screen.width - width) / 2;
+        var top = (screen.height - height) / 2;
+        window.open("creditForm.jsp", "_blank", "width=" + width + ", height=" + height + ", left=" + left + ", top=" + top);
+    }
+    function openDepositForm() {
+        var width = 400;
+        var height = 150;
+        var left = (screen.width - width) / 2;
+        var top = (screen.height - height) / 2;
+        window.open("depositForm.jsp", "_blank", "width=" + width + ", height=" + height + ", left=" + left + ", top=" + top);
     }
 </script>
 </body>
