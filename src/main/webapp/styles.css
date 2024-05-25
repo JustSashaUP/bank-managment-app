@@ -1,0 +1,249 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e0f7da; /* Зелений фон */
+    color: #333;
+}
+
+.main-container {
+    margin: 0 auto;
+    padding: 0 100px 100px 100px;
+}
+
+.main-container-low-size {
+        width: 65%;
+        margin: 0 auto;
+        padding: 20px;
+        }
+
+        .main-container-low-nav {
+                width: 65%;
+            margin: 0 auto;
+            padding: 0 100px 0px 100px;
+                }
+
+.main-container-bg {
+    margin: 0 auto;
+    padding: 100px;
+    background-color: #e5f4ff;
+}
+
+.balance-container{
+        background-color: rgb(190, 246, 212);
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        flex: auto;
+}
+
+header {
+    background-color: #2e7d32; /* Темно-зелений */
+    padding: 20px 0;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo-container img.logo {
+    height: 50px;
+    margin-right: 10px;
+}
+
+.home-text {
+    padding: 10px;
+    font-family: system-ui;
+    font-size: 20px;
+}
+
+header h1 {
+    color: white;
+    margin: 0;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin: 0 10px;
+
+}
+
+nav ul li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 4px;
+}
+
+nav ul li a:hover, nav ul li a.active {
+    background-color: #1b5e20; /* Темніший зелений */
+}
+
+main {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h2 {
+    color: #2e7d32; /* Темно-зелений */
+    margin-bottom: 20px;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #2e7d32; /* Темно-зелений */
+}
+
+form button {
+    background-color: #2e7d32; /* Темно-зелений */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #1b5e20; /* Темніший зелений */
+}
+
+.button-submit {
+    background-color: #2e7d32; /* Темно-зелений */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button-submit:hover {
+    background-color: #1b5e20; /* Темніший зелений */
+}
+
+.client-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-around;
+}
+
+.card {
+    background-color: #f1f8e9; /* Світло-зелений */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex: 1 1 calc(33% - 40px);
+    max-width: calc(33% - 40px);
+}
+
+.text-block {
+    background-color: #f1f8e9; /* Світло-зелений */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex: auto;
+    max-width: 65%;
+    line-height: 1.6;
+}
+
+.main-text-block {
+    padding: 20px;
+    flex: auto;
+    max-width: 100%;
+    font-size: 20px;
+    line-height: 1.6;
+}
+
+.text-block-gray {
+    background-color: #D3D3D3;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    flex: auto;
+    max-width: 65%;
+}
+
+footer {
+    background-color: #2e7d32; /* Темно-зелений */
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+#loanSummary, #transactionSummary {
+    margin-top: 20px;
+    background-color: #e0f7da; /* Світло-зелений */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#activeLoans {
+    margin-top: 20px;
+}
+
+#activeLoans .card {
+    background-color: #fffde7; /* Легкий жовтий */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex: 1 1 calc(100% - 40px);
+    max-width: calc(100% - 40px);
+}
+
+
+#transactionHistory {
+    background-color: #e8f5e9; /* Світло-зелений */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+#transactionHistory .transaction {
+    background-color: #f1f8e9; /* Світло-зелений */
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
