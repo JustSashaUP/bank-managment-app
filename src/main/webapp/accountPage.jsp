@@ -7,20 +7,10 @@ contentType="text/html; charset=ISO-8859-1"
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <title>Account</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            width: 65%;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f0f0f0;
-        }
-
         .account-info {
             margin-bottom: 20px;
         }
@@ -71,20 +61,49 @@ contentType="text/html; charset=ISO-8859-1"
     }
     Account currentAccount = currentUser.getAccounts().get(currentAccountIndex);
 %>
+<div class="main-container-low-nav">
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <img src="sources/logo.png" alt="🏦" class="logo">
+                <h1>Bank</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.jsp">Main Page</a></li>
+                    <li><a href="homePage.jsp">Home Page</a></li>
+                    <li><a href="accountPage.jsp">Account Page</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    </div>
+    <div class="main-container-low-size">
 <div class="container">
-    <div class="account-info">
-    <h2>Account <%= currentAccount.getTitle() %></h2>
+<h2>Account <%= currentAccount.getTitle() %></h2>
+    <div class="text-block">
         <div>
             Title: <%= currentAccount.getTitle() %>
         </div>
         <div>
             Number: <%= currentAccount.getNumber() %>
         </div>
-        <div>
+        <div class="balance-container">
             Balance: <%= currentAccount.getBalance() %>
         </div>
-        <a href="homePage.jsp" style="text-decoration: none">Home</a>
     </div>
+        <%
+        // checking the number of accounts,
+        // if the number is maximum, then the button is hidden
+
+            if (currentUser.accountsCount() < 3)
+            {
+        %>
+            <button class="button-submit" onclick="openAccountForm()">New Account</button>
+        <%
+            }
+        %>
+        <button class="button-submit" onclick="redirectToTransactionPage()">Send funds</button>
     <div class="account-info">
         <h2>Credit</h2>
 <%
@@ -94,6 +113,7 @@ for (Credit credit : currentAccount.getCredits()) {
     if (credit.getCreditStatus().equals("open") || credit.getCreditStatus().equals("overdue")) {
         creditFound = true;
 %>
+<div class="text-block">
         <div>
             Amount: <%= credit.getCreditSize() %>
         </div>
@@ -109,15 +129,31 @@ for (Credit credit : currentAccount.getCredits()) {
         <div>
             Status: <%= credit.getCreditStatus() %>
         </div>
+        </div>
 <%
     }
 }
 if (!creditFound) {
 %>
+<div class="text-block">
         <div>No open or overdue credit data available</div>
+        </div>
 <%
 }
 %>
+
+    <%
+    // checking the number of credits,
+    // if the number is maximum, then the button is hidden
+
+        if (!creditFound)
+        {
+    %>
+        <button class="button-submit" onclick="openCreditForm()">New Credit</button>
+    <%
+        }
+    %>
+
         <h2>Deposit</h2>
 <%
 boolean depositFound = false;
@@ -126,6 +162,7 @@ for (Deposit deposit : currentAccount.getDeposits()) {
     if (deposit.getDepositStatus().equals("open")) {
         depositFound = true;
 %>
+<div class="text-block">
         <div>
             Amount: <%= deposit.getDepositSize() %>
         </div>
@@ -141,15 +178,31 @@ for (Deposit deposit : currentAccount.getDeposits()) {
         <div>
             Status: <%= deposit.getDepositStatus() %>
         </div>
+        </div>
 <%
     }
 }
 if (!depositFound) {
 %>
+<div class="text-block">
         <div>No open deposit data available</div>
+        </div>
 <%
 }
+
 %>
+    <%
+    // checking the number of deposits,
+    // if the number is maximum, then the button is hidden
+
+        if (!depositFound)
+        {
+    %>
+        <button class="button-submit" onclick="openDepositForm()">New Deposit</button>
+    <%
+        }
+    %>
+
     <%-- Navigation if more than one account --%>
 <div class="navigation">
     <%
@@ -167,12 +220,14 @@ if (!depositFound) {
     }
     %>
 </div>
+<div class="text-block">
     <h2>Credit History</h2>
 <%
 for (Credit credit : currentAccount.getCredits()) {
     if (credit.getCreditStatus().equals("paid")) {
     isCreditHistoryEmpty = false;
 %>
+<div class="text-block-gray">
         <div>
             Amount: <%= credit.getCreditSize() %>
         </div>
@@ -187,6 +242,7 @@ for (Credit credit : currentAccount.getCredits()) {
         </div>
         <div>
             Status: <%= credit.getCreditStatus() %>
+        </div>
         </div>
         <br/>
 <%
@@ -205,6 +261,7 @@ for (Deposit deposit : currentAccount.getDeposits()) {
     if (deposit.getDepositStatus().equals("closed")) {
     isDepositHistoryEmpty = false;
 %>
+<div class="text-block-gray">
         <div>
             Amount: <%= deposit.getDepositSize() %>
         </div>
@@ -219,6 +276,7 @@ for (Deposit deposit : currentAccount.getDeposits()) {
         </div>
         <div>
             Status: <%= deposit.getDepositStatus() %>
+        </div>
         </div>
         <br/>
 <%
@@ -241,6 +299,7 @@ if (isTransactionHistoryEmpty) {
 } else {
     for (Transaction transaction : currentAccount.getTransactions()) {
 %>
+<div class="text-block-gray">
         <div>
             Amount: <%= transaction.getTransactionSize() %>
         </div>
@@ -253,47 +312,15 @@ if (isTransactionHistoryEmpty) {
         <div>
             Date: <%= transaction.getTransactionDateTime() %>
         </div>
+        </div>
         <br/>
 <%
     }
 }
 %>
+</div>
      </div>
     <div>
-    <%
-    // checking the number of accounts,
-    // if the number is maximum, then the button is hidden
-
-        if (currentUser.accountsCount() < 3)
-        {
-    %>
-        <button onclick="openAccountForm()">New Account</button>
-    <%
-        }
-    %>
-    <%
-    // checking the number of credits,
-    // if the number is maximum, then the button is hidden
-
-        if (!creditFound)
-        {
-    %>
-        <button onclick="openCreditForm()">New Credit</button>
-    <%
-        }
-    %>
-    <%
-    // checking the number of deposits,
-    // if the number is maximum, then the button is hidden
-
-        if (!depositFound)
-        {
-    %>
-        <button onclick="openDepositForm()">New Deposit</button>
-    <%
-        }
-    %>
-    <button onclick="redirectToTransactionPage()">Send funds</button>
     </div>
 </div>
 <script type="text/javascript">
@@ -311,26 +338,20 @@ if (isTransactionHistoryEmpty) {
 </script>
 <script>
     function openAccountForm() {
-        var width = 400;
-        var height = 150;
+        var width = 300;
+        var height = 400;
         var left = (screen.width - width) / 2;
         var top = (screen.height - height) / 2;
-        window.open("accountForm.jsp", "_blank", "width=" + width + ", height=" + height + ", left=" + left + ", top=" + top);
+        var features = "width=" + width + ", height=" + height + ", left=" + left + ", top=" + top + ", resizable=yes, scrollbars=yes";
+        window.open("accountForm.jsp", "_blank", features);
     }
-    function openCreditForm() {
-        var width = 400;
-        var height = 150;
-        var left = (screen.width - width) / 2;
-        var top = (screen.height - height) / 2;
-        window.open("creditForm.jsp", "_blank", "width=" + width + ", height=" + height + ", left=" + left + ", top=" + top);
-    }
-    function openDepositForm() {
-        var width = 400;
-        var height = 150;
-        var left = (screen.width - width) / 2;
-        var top = (screen.height - height) / 2;
-        window.open("depositForm.jsp", "_blank", "width=" + width + ", height=" + height + ", left=" + left + ", top=" + top);
-    }
+        function openCreditForm() {
+            window.location.href = "creditForm.jsp";
+        }
+
+        function openDepositForm() {
+            window.location.href = "depositForm.jsp";
+        }
 </script>
 </body>
 </html>

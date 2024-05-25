@@ -8,26 +8,72 @@ contentType="text/html; charset=ISO-8859-1"
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <title>Account Form</title>
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-    }
-
-    .container {
-        margin: 0 auto;
-        padding: 20px;
-    }
-</style>
 </head>
 <%
     User currentUser = (User) session.getAttribute("currentUserSession");
     Set<String> availableTitles = currentUser.getAvailableTitles();
 %>
+    <style>
+      .container-account {
+        max-width: 250px;
+        padding: 20px;
+        margin: auto;
+        height: 125px;
+        margin-top: 100px;
+        background-color: #A9F5A9;
+        border-radius: 5px;
+        box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+        justify-content: center;
+        align-items: center;
+      }
+      form {
+        font-family: system-ui;
+        font-size: x-large;
+      }
+      input {
+        padding: 10px;
+        color: black;
+        background-color: #CEF6CE;
+        border: none;
+        margin: 5px;
+        border-radius: 7px;
+      }
+      table {
+        width: 100%;
+      }
+      td {
+        padding: 10px;
+        color: black;
+      }
+      #create-button {
+        background-color: rgb(252, 220, 9);
+        padding: 10px;
+        color:black;
+        margin: 5px;
+        width: 100px;
+        border: none;
+        font-size: large;
+        font-family: system-ui;
+      }
+      #create-button:hover {
+        background-color: rgb(247, 231, 128);
+      }
+
+      #title {
+        padding: 10px;
+        width: 225px;
+        color: black;
+        background-color: #CEF6CE;
+        border: none;
+        margin: 5px;
+        border-radius: 7px;
+      }
+    </style>
 <body>
-    <div class="container">
-      <form class="container" action="createAccountServlet" method="post">
+      <form class="container-account" action="createAccountServlet" method="post">
         <table>
           <tr>
           <td>
@@ -41,6 +87,5 @@ contentType="text/html; charset=ISO-8859-1"
         </table>
         <input type="submit" value="Create" id="create-button" />
       </form>
-    </div>
 </body>
 </html>

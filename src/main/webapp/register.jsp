@@ -12,7 +12,7 @@
         margin: auto;
         height: 500px;
         margin-top: 100px;
-        background-color: rgb(63, 77, 136);
+        background-color: #A9F5A9;
         border-radius: 5px;
         box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
         justify-content: center;
@@ -24,8 +24,8 @@
       }
       input {
         padding: 10px;
-        color: white;
-        background-color: rgb(43, 60, 126);
+        color: black;
+        background-color: #CEF6CE;
         border: none;
         margin: 5px;
         border-radius: 7px;
@@ -35,7 +35,7 @@
       }
       td {
         padding: 10px;
-        color: aliceblue;
+        color: black;
       }
       #register-button {
         background-color: rgb(252, 220, 9);
@@ -52,7 +52,7 @@
       }
     </style>
         </head>
-    <body style="background-color: rgb(112, 167, 230)">
+    <body style="background-color: rgb(163, 218, 255)">
 
     <!-- check on user authentication-->
         <%
@@ -101,7 +101,7 @@
           </tr>
         </table>
         <input type="submit" value="Register" id="register-button" />
-                <a href="login.jsp" style="float: right; color:white; padding-top:50px;">already registered?</a>
+                <a href="login.jsp" style="float: right; color:black; padding-top:50px;">already registered?</a>
       </form>
       <%
         String status = (String) request.getAttribute("errorMessage");

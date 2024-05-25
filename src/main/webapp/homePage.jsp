@@ -6,18 +6,10 @@ contentType="text/html; charset=ISO-8859-1"
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <title>Home</title>
 <style>
-    body {
-        margin: 0;
-        padding: 0;
-        }
-    .container {
-        width: 65%;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: #f0f0f0;
-        }
 </style>
 </head>
 <body>
@@ -38,36 +30,47 @@ for(Cookie cookie : cookies){
 }
 }
 %>
-<div class="container">
-<h3>Hi <%=userId %>, Login successful. Your Session ID=<%=sessionID %></h3>
-<div>
-    First Name: <%=currentUser.getFirstName()%>
-</div>
-<div>
-    Last Name: <%=currentUser.getLastName()%>
-</div>
-<div>
-    Phone Number: <%=currentUser.getPhoneNumber()%>
-</div>
-<div>
-    Email: <%=currentUser.getEmail()%>
-</div>
-<div>
-    Birth Date: <%=currentUser.getBirthDate()%>
-</div>
-<div>
-    <a href="accountPage.jsp">show accounts</a>
+<div class="main-container-low-nav">
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <img src="sources/logo.png" alt="🏦" class="logo">
+                <h1>Bank</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.jsp">Main Page</a></li>
+                    <li><a href="homePage.jsp">Home Page</a></li>
+                    <li><a href="accountPage.jsp">Account Page</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    </div>
+    <div class="main-container-low-size">
+<h1>Home page</h1>
+<div class="text-block">
+<h2>Client Data</h2>
+<ui style="list-style: none;">
+<li class="text-block">First Name: <%=currentUser.getFirstName()%></li>
+    <li class="text-block">Last Name: <%=currentUser.getLastName()%></li>
+    <li class="text-block">Phone Number: <%=currentUser.getPhoneNumber()%></li>
+    <li class="text-block">Email: <%=currentUser.getEmail()%></li>
+    <li class="text-block">Birth Date: <%=currentUser.getBirthDate()%></li>
+</ui>
 </div>
 <br>
-        <button onclick="openClientForm()">Update</button>
+<div style="margin-bottom: 5px;">
+        <button class="button-submit" onclick="openClientForm()">Update client data</button>
+</div>
     <form id="logoutForm" action="logoutServlet" method="post">
-        <input type="submit" value="Logout">
+        <button type="submit">Logout</button>
     </form>
 </div>
 <script>
     function openClientForm() {
-        var width = 400;
-        var height = 150;
+        var width = 600;
+        var height = 500;
         var left = (screen.width - width) / 2;
         var top = (screen.height - height) / 2;
         window.open("clientForm.jsp", "_blank", "width=" + width + ", height=" + height + ", left=" + left + ", top=" + top);
