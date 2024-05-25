@@ -173,7 +173,7 @@ form button:hover {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     flex: auto;
-    max-width: 65%;
+    max-width: 250%;
     line-height: 1.6;
 }
 
@@ -189,9 +189,10 @@ form button:hover {
     background-color: #D3D3D3;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 10px;
+    padding: 20px;
     flex: auto;
-    max-width: 65%;
+    max-width: 250%;
+    line-height: 1.6;
 }
 
 footer {
