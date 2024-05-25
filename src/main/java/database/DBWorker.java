@@ -1,5 +1,10 @@
 package database;
 
+import account.database.AccountDAO;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import utils.fileutil.LoggerUtils;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -10,6 +15,12 @@ public class DBWorker {
     private static final String PASSWORD = "";
 
     private Connection connection;
+    private static Logger logger;
+    static
+    {
+        logger = LogManager.getLogger(AccountDAO.class);
+        LoggerUtils.setLogger(logger);
+    }
 
     public DBWorker()
     {
