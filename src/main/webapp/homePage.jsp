@@ -49,8 +49,7 @@ for(Cookie cookie : cookies){
     </div>
     <div class="main-container-low-size">
 <h1>Home page</h1>
-<div class="text-block">
-<h2>Client Data</h2>
+<div class="text-block" style="background: linear-gradient(50deg, #7ee8fb 0%, #7fffb1 50%);">
 <ui style="list-style: none;">
     <li><strong class="text-block-gray">First Name:</strong> <section class="text-block"><%=currentUser.getFirstName()%></section></li>
     <li><strong class="text-block-gray">Last Name:</strong> <section class="text-block"><%=currentUser.getLastName()%></section></li>
