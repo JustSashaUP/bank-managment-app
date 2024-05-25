@@ -83,9 +83,9 @@ pageEncoding="ISO-8859-1" import="account.database.Account, user.database.User"
             </td>
           </tr>
           <tr>
-            <td><label for="term">End date*</label></td>
+            <td><label for="term">Term*</label></td>
             <td>
-              <input id="term" name="term" type="text" required />
+              <input id="term" name="term" type="text" placeholder="12" required />
             </td>
           </tr>
         </table>
