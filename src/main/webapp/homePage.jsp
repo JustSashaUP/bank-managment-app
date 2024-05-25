@@ -52,11 +52,11 @@ for(Cookie cookie : cookies){
 <div class="text-block">
 <h2>Client Data</h2>
 <ui style="list-style: none;">
-<li class="text-block">First Name: <%=currentUser.getFirstName()%></li>
-    <li class="text-block">Last Name: <%=currentUser.getLastName()%></li>
-    <li class="text-block">Phone Number: <%=currentUser.getPhoneNumber()%></li>
-    <li class="text-block">Email: <%=currentUser.getEmail()%></li>
-    <li class="text-block">Birth Date: <%=currentUser.getBirthDate()%></li>
+    <li><strong class="text-block-gray">First Name:</strong> <section class="text-block"><%=currentUser.getFirstName()%></section></li>
+    <li><strong class="text-block-gray">Last Name:</strong> <section class="text-block"><%=currentUser.getLastName()%></section></li>
+    <li><strong class="text-block-gray">Phone Number:</strong> <section class="text-block"><%=currentUser.getPhoneNumber()%></section></li>
+    <li><strong class="text-block-gray">Email:</strong> <section class="text-block"><%=currentUser.getEmail()%></section></li>
+    <li><strong class="text-block-gray">Birth Date:</strong> <section class="text-block"><%=currentUser.getBirthDate()%></section></li>
 </ui>
 </div>
 <br>
