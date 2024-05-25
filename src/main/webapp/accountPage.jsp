@@ -28,6 +28,16 @@ contentType="text/html; charset=ISO-8859-1"
             font-size: 50px;
             color: green;
         }
+
+        .arrow-button:hover {
+            padding: 5px;
+            margin: 0 5px;
+            cursor: pointer;
+            border: none;
+            background: gray;
+            font-size: 50px;
+            color: green;
+        }
     </style>
 </head>
 <body>
@@ -80,14 +90,15 @@ contentType="text/html; charset=ISO-8859-1"
     </div>
     <div class="main-container-low-size">
 <div class="container">
-<h1><%= currentAccount.getTitle() %> &#128184</h1>
-    <div class="text-block">
-        <div>
+<h1>Accounts page</h1>
+<h1 class="text-block-green"><%= currentAccount.getTitle() %> &#128184</h1>
+    <div class="text-block" style="background: linear-gradient(100deg, #7ee8fb 0%, #7fffb1 100%);">
+        <div class="text-block">
             Title: <%= currentAccount.getTitle() %>
-        </div>
-        <div>
+        </div><br/>
+        <div class="text-block">
             Number: <%= currentAccount.getNumber() %>
-        </div>
+        </div><br/>
         <div class="balance-container">
             Balance: <%= currentAccount.getBalance() %>
         </div>
