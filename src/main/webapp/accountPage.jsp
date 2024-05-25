@@ -80,7 +80,7 @@ contentType="text/html; charset=ISO-8859-1"
     </div>
     <div class="main-container-low-size">
 <div class="container">
-<h2>Account <%= currentAccount.getTitle() %></h2>
+<h1><%= currentAccount.getTitle() %> &#128184</h1>
     <div class="text-block">
         <div>
             Title: <%= currentAccount.getTitle() %>
@@ -91,7 +91,7 @@ contentType="text/html; charset=ISO-8859-1"
         <div class="balance-container">
             Balance: <%= currentAccount.getBalance() %>
         </div>
-    </div>
+    </div><br/>
         <%
         // checking the number of accounts,
         // if the number is maximum, then the button is hidden
@@ -137,7 +137,7 @@ if (!creditFound) {
 %>
 <div class="text-block">
         <div>No open or overdue credit data available</div>
-        </div>
+        </div><br/>
 <%
 }
 %>
@@ -186,7 +186,7 @@ if (!depositFound) {
 %>
 <div class="text-block">
         <div>No open deposit data available</div>
-        </div>
+</div><br/>
 <%
 }
 
@@ -198,7 +198,7 @@ if (!depositFound) {
         if (!depositFound)
         {
     %>
-        <button class="button-submit" onclick="openDepositForm()">New Deposit</button>
+        <button class="button-submit" onclick="openDepositForm()">New Deposit</button><br/>
     <%
         }
     %>
