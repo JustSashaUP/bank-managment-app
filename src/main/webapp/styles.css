@@ -31,9 +31,10 @@ body {
 
 .balance-container{
         background-color: rgb(190, 246, 212);
-        padding: 20px;
+        padding: 40px;
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        font-size: 25px;
         flex: auto;
 }
 
@@ -189,6 +190,16 @@ form button:hover {
     background-color: #D3D3D3;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    flex: auto;
+    max-width: 250%;
+    line-height: 1.6;
+}
+
+.text-block-green {
+    background: linear-gradient(100deg, #5bd5f4 0%, #34ff85 100%);
+    border-radius: 8px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.4);
     padding: 20px;
     flex: auto;
     max-width: 250%;
