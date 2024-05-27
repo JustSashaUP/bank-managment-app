@@ -48,10 +48,11 @@ public class CreateDepositServlet extends HttpServlet {
         }
         catch (Exception e)
         {
+            //req.setAttribute("errorMessage", "No money no honey!");
             logger.error("Creating deposit servlet error❌: " + e.getMessage());
         }
-        logger.info("CreateCreditServlet finished✅");
-        resp.setContentType("text/html;charset=UTF-8");
-        resp.getWriter().println("<html><head><script>window.opener.location.reload();window.close();</script></head></html>");
+        //req.setAttribute("successMessage", "Deposit created successfully!");
+        logger.info("CreateDepositServlet finished✅");
+        resp.sendRedirect("accountPage.jsp");
     }
 }

@@ -54,7 +54,6 @@ public class CreateCreditServlet extends HttpServlet {
             logger.error("Creating credit servlet error❌: " + e.getMessage());
         }
         logger.info("CreateCreditServlet finished✅");
-        resp.setContentType("text/html;charset=UTF-8");
-        resp.getWriter().println("<html><head><script>window.opener.location.reload();window.close();</script></head></html>");
+        resp.sendRedirect("accountPage.jsp");
     }
 }

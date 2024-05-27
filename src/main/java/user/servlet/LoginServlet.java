@@ -44,7 +44,6 @@ public class LoginServlet extends HttpServlet {
         catch(Exception e)
         {
             logger.error("Login ERROR❌: " + e.getMessage());
-            System.out.println("Login ERROR❌: " + e.getMessage());
         }
         if (loginStatus)
         {
