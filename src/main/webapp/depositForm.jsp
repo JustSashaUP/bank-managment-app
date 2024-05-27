@@ -7,8 +7,8 @@ pageEncoding="ISO-8859-1" import="account.database.Account, user.database.User"
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <title>Deposit Form</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <style>
       .container-deposit {
         max-width: 500px;
@@ -91,5 +91,29 @@ pageEncoding="ISO-8859-1" import="account.database.Account, user.database.User"
         </table>
         <input type="submit" value="Create" id="create-button" />
       </form>
+      <%
+        String status = (String) request.getAttribute("successMessage");
+        if (status != null)
+        {
+      %>
+        <script>
+            Swal.fire({
+                icon: 'info',
+                title: 'Successfully!',
+                text: '<%= status %>',
+            }).then(function() {
+                window.location.href = 'accountPage.jsp';
+            });
+        </script>
+      <%
+        request.setAttribute("successMessage", null);
+        }
+      %>
   </body>
+  <script>
+    var today = new Date();
+    var twoWeeksLater = new Date(today.getTime() + 14 * 24 * 60 * 60 * 1000);
+    var minDate = twoWeeksLater.toISOString().split('T')[0];
+    document.getElementById("end_date").min = minDate;
+  </script>
 </html>

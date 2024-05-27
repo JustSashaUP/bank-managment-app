@@ -51,6 +51,17 @@
         background-color: rgb(247, 231, 128);
       }
     </style>
+          <script>
+          function passVisibility() {
+             var x = document.getElementById("password");
+             if (x.type === "password") {
+                x.type = "text";
+             }
+             else {
+                x.type = "password";
+             }
+          }
+          </script>
     </head>
     <body style="background-color: rgb(163, 218, 255)">
     <%
@@ -71,7 +82,8 @@
           <tr>
             <td><label for="password">Password*</label></td>
             <td>
-              <input id="password" name="password" type="password" required />
+              <input id="password" name="password" type="password" required pattern=".{6,}" title="Password must be at least 6 characters long" />
+              <input type="checkbox" onclick="passVisibility()">show</input>
             </td>
           </tr>
         </table>
