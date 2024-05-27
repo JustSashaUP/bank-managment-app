@@ -115,6 +115,7 @@ contentType="text/html; charset=ISO-8859-1"
             }
         %>
         <button class="button-submit" onclick="redirectToTransactionPage()">Send funds</button>
+        <button class="button-submit" onclick="redirectToTransactionTopUpPage()">Add funds</button>
     <div class="account-info">
         <h2>Credit</h2>
 <%
@@ -189,7 +190,7 @@ for (Deposit deposit : currentAccount.getDeposits()) {
         <div>
             Status: <%= deposit.getDepositStatus() %>
         </div>
-        </div>
+        </div><br/>
 <%
     }
 }
@@ -337,6 +338,9 @@ if (isTransactionHistoryEmpty) {
 <script type="text/javascript">
     function redirectToTransactionPage() {
         window.location.href = 'transactionPage.jsp';
+    }
+    function redirectToTransactionTopUpPage() {
+        window.location.href = 'topupPage.jsp';
     }
 </script>
 <script>
