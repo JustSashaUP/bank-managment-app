@@ -15,6 +15,7 @@ import java.util.List;
 
 public class TransactionDAO {
     private static final String GET_PROCEDURE_TRANSACTION_DATA = "call getTransactionDataByAccountId(?)";
+    private static final String CREATE_PROCEDURE_TOPUP_TRANSACTION_DATA = "call topUp(?, ?)";
     private static final String CREATE_PROCEDURE_TRANSACTION_DATA = "call transfer(?, ?, ?)";
     private static DBWorker worker;
     private static Transaction transaction;
@@ -76,6 +77,36 @@ public class TransactionDAO {
             preparedStatement.setDouble(1, transaction.getTransactionSize());
             preparedStatement.setInt(2, transaction.getSenderAccountId());
             preparedStatement.setString(3, transaction.getRecipientCardNumber());
+            logger.info(preparedStatement);
+
+            result = preparedStatement.executeUpdate();
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace(System.err);
+            logger.error("INSERT transaction data to database ERROR❌!");
+            logger.error("SQLState: " + e.getSQLState());
+            logger.error("Error code: " + e.getErrorCode());
+            logger.error("Message: " + e.getMessage());
+        }
+        return result;
+    }
+
+    public static int accountTopUp(int recipientId, double amount)
+    {
+        transaction = new Transaction();
+        worker = new DBWorker();
+
+        logger.info("INSERT transaction data to database✔️");
+
+        int result = 0;
+
+        try(PreparedStatement preparedStatement = worker.getConnection().prepareStatement(CREATE_PROCEDURE_TOPUP_TRANSACTION_DATA))
+        {
+            transaction.setRecipientAccountId(recipientId);
+            transaction.setTransactionSize(amount);
+            preparedStatement.setInt(1, transaction.getRecipientAccountId());
+            preparedStatement.setDouble(2, transaction.getTransactionSize());
             logger.info(preparedStatement);
 
             result = preparedStatement.executeUpdate();
