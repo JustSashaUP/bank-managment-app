@@ -39,15 +39,22 @@ public class CreateTransactionTopUpServlet extends HttpServlet {
         }
 
         int id = currentUser.getAccount(currentAccountIndex).getId();
+        int status = 0;
         String amount = req.getParameter("amount");
         try
         {
-            TransactionDAO.accountTopUp(id, Double.parseDouble(amount));
+            status = TransactionDAO.accountTopUp(id, Double.parseDouble(amount));
         }
         catch (Exception e)
         {
             logger.error("Creating transaction servlet error❌: " + e.getMessage());
         }
         logger.info("CreateTransactionTopUpServlet finished✅");
+        if (status > 0) {
+            req.setAttribute("successMessage", "Successfully!");
+        } else {
+            req.setAttribute("errorMessage", "Failed!");
+        }
+        req.getRequestDispatcher("topupPage.jsp").include(req, resp);
     }
 }

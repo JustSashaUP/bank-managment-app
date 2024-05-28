@@ -231,7 +231,7 @@ if (!depositFound) {
         }
     }
     %>
-</div>
+</div><br/>
 <div class="text-block">
     <h2>Credit History</h2>
 <%

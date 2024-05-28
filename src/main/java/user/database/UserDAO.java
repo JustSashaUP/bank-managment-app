@@ -25,6 +25,7 @@ public class UserDAO {
     private static final String GET_PROCEDURE_CLIENT_ID = "call getClientIdByEmail(?)";
     private static final String UPDATE_CLIENT_SQL = "call updateClientData(?, ?, ?)";
     private static User user;
+    private static DBWorker worker;
     private static Logger logger;
     static
     {
@@ -33,7 +34,7 @@ public class UserDAO {
     }
     public int registerUser(User user)
     {
-        DBWorker worker = new DBWorker();
+        worker = new DBWorker();
         logger.info("INSERT client data to database✔️");
 
         int result = 0;
@@ -60,7 +61,7 @@ public class UserDAO {
 
     public boolean loginValidate(User user)
     {
-        DBWorker worker = new DBWorker();
+        worker = new DBWorker();
         logger.info("GET client data from database✔️");
 
         boolean status = false;
@@ -87,7 +88,7 @@ public class UserDAO {
 
     public boolean registerValidate(User user)
     {
-        DBWorker worker = new DBWorker();
+        worker = new DBWorker();
         logger.info("GET client data from database✔️");
 
         boolean status = false;
@@ -113,7 +114,7 @@ public class UserDAO {
 
     public int getUserId(String userEmail)
     {
-        DBWorker worker = new DBWorker();
+        worker = new DBWorker();
         user = new User();
         logger.info("GET client_id data from database✔️");
 
@@ -135,7 +136,7 @@ public class UserDAO {
 
     public User getUser(int id)
     {
-        DBWorker worker = new DBWorker();
+        worker = new DBWorker();
         user = new User();
         logger.info("GET client_id data from database✔️");
 
@@ -165,7 +166,7 @@ public class UserDAO {
 
     public static int updateUser(int id, String email, String password)
     {
-        DBWorker worker = new DBWorker();
+        worker = new DBWorker();
         logger.info("UPDATE and SET client data to database✔️");
 
         int result = 0;

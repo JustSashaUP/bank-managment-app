@@ -62,7 +62,7 @@ pageEncoding="ISO-8859-1" import="account.database.Account, user.database.User"
           <tr>
             <td><label for="email">Email*</label></td>
             <td>
-              <input id="email" name="email" type="email" required />
+              <input id="email" name="email" type="email" placeholder="example@example.com" required />
             </td>
           </tr>
           <tr>

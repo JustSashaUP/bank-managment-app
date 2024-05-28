@@ -42,9 +42,10 @@ public class CreateDepositServlet extends HttpServlet {
 
         String amount = req.getParameter("amount");
         String endDate = req.getParameter("end_date");
+        int status = 0;
         try
         {
-            DepositDAO.createDeposit(currentUser.getAccount(currentAccountIndex).getId(), Double.parseDouble(amount), endDate);
+            status = DepositDAO.createDeposit(currentUser.getAccount(currentAccountIndex).getId(), Double.parseDouble(amount), endDate);
         }
         catch (Exception e)
         {
@@ -53,6 +54,12 @@ public class CreateDepositServlet extends HttpServlet {
         }
         //req.setAttribute("successMessage", "Deposit created successfully!");
         logger.info("CreateDepositServlet finished✅");
-        resp.sendRedirect("accountPage.jsp");
+        if (status > 0) {
+            req.setAttribute("successMessage", "Successfully!");
+        } else {
+            req.setAttribute("errorMessage", "Failed!");
+        }
+        req.getRequestDispatcher("depositForm.jsp").include(req, resp);
+        //resp.sendRedirect("accountPage.jsp");
     }
 }

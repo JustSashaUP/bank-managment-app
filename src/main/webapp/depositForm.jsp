@@ -79,7 +79,7 @@ pageEncoding="ISO-8859-1" import="account.database.Account, user.database.User"
           <tr>
             <td><label for="amount">Amount*</label></td>
             <td>
-              <input id="amount" name="amount" type="amount" required />
+              <input id="amount" name="amount" type="amount" placeholder="1000.00" required />
             </td>
           </tr>
           <tr>
@@ -92,22 +92,40 @@ pageEncoding="ISO-8859-1" import="account.database.Account, user.database.User"
         <input type="submit" value="Create" id="create-button" />
       </form>
       <%
-        String status = (String) request.getAttribute("successMessage");
-        if (status != null)
-        {
+          String status = (String) request.getAttribute("successMessage");
+          if (status == null) {
+              status = (String) request.getAttribute("errorMessage");
+          }
+
+          if ("Successfully!".equals(status)) {
       %>
-        <script>
-            Swal.fire({
-                icon: 'info',
-                title: 'Successfully!',
-                text: '<%= status %>',
-            }).then(function() {
-                window.location.href = 'accountPage.jsp';
-            });
-        </script>
+              <script>
+                  Swal.fire({
+                      icon: 'success',
+                      title: 'Deposit',
+                      text: '<%= status %>',
+                  }).then(function() {
+                      window.location.href = 'depositForm.jsp';
+                  });
+              </script>
       <%
-        request.setAttribute("successMessage", null);
-        }
+              request.setAttribute("successMessage", null);
+          }
+
+          if ("Failed!".equals(status)) {
+      %>
+              <script>
+                  Swal.fire({
+                      icon: 'error',
+                      title: 'Deposit',
+                      text: '<%= status %>',
+                  }).then(function() {
+                      window.location.href = 'depositForm.jsp';
+                  });
+              </script>
+      <%
+              request.setAttribute("errorMessage", null);
+          }
       %>
   </body>
   <script>

@@ -92,4 +92,42 @@ pageEncoding="ISO-8859-1" import="account.database.Account, user.database.User"
         <input type="submit" value="Create" id="create-button" />
       </form>
   </body>
+    <%
+        String status = (String) request.getAttribute("successMessage");
+        if (status == null) {
+            status = (String) request.getAttribute("errorMessage");
+        }
+
+        // Check for success message
+        if ("Successfully!".equals(status)) {
+    %>
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Credit',
+                    text: '<%= status %>',
+                }).then(function() {
+                    window.location.href = 'creditForm.jsp';
+                });
+            </script>
+    <%
+            request.setAttribute("successMessage", null);
+        }
+
+        // Check for error message
+        if ("Failed!".equals(status)) {
+    %>
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Credit',
+                    text: '<%= status %>',
+                }).then(function() {
+                    window.location.href = 'creditForm.jsp';
+                });
+            </script>
+    <%
+            request.setAttribute("errorMessage", null);
+        }
+    %>
 </html>

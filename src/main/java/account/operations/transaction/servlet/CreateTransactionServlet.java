@@ -41,14 +41,21 @@ public class CreateTransactionServlet extends HttpServlet {
         int id = currentUser.getAccount(currentAccountIndex).getId();
         String amount = req.getParameter("amount");
         String cardNumber = req.getParameter("card_number");
+        int status = 0;
         try
         {
-            TransactionDAO.transfer(id, Double.parseDouble(amount), cardNumber);
+            status = TransactionDAO.transfer(id, Double.parseDouble(amount), cardNumber);
         }
         catch (Exception e)
         {
             logger.error("Creating transaction servlet error❌: " + e.getMessage());
         }
         logger.info("CreateTransactionServlet finished✅");
+        if (status > 0) {
+            req.setAttribute("successMessage", "Successfully!");
+        } else {
+            req.setAttribute("errorMessage", "Failed!");
+        }
+        req.getRequestDispatcher("transactionPage.jsp").include(req, resp);
     }
 }

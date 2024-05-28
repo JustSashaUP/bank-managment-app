@@ -79,17 +79,55 @@ pageEncoding="ISO-8859-1" import="account.database.Account, user.database.User"
           <tr>
             <td><label for="amount">Amount*</label></td>
             <td>
-              <input id="amount" name="amount" type="amount" required />
+              <input id="amount" name="amount" type="amount" placeholder="100.00" required />
             </td>
           </tr>
           <tr>
             <td><label for="card_number">Card number*</label></td>
             <td>
-              <input id="card_number" name="card_number" type="text" placeholder="1234 1234 1234 1234" required />
+              <input id="card_number" name="card_number" type="text" placeholder="0000-0000-0000-0000" minlength="16" maxlength="16" required />
             </td>
           </tr>
         </table>
         <input type="submit" value="Send funds" id="transfer-button" />
       </form>
   </body>
+  <%
+      String status = (String) request.getAttribute("successMessage");
+      if (status == null) {
+          status = (String) request.getAttribute("errorMessage");
+      }
+
+      // Check for success message
+      if ("Successfully!".equals(status)) {
+  %>
+          <script>
+              Swal.fire({
+                  icon: 'success',
+                  title: 'Transaction',
+                  text: '<%= status %>',
+              }).then(function() {
+                  window.location.href = 'transactionPage.jsp';
+              });
+          </script>
+  <%
+          request.setAttribute("successMessage", null);
+      }
+
+      // Check for error message
+      if ("Failed!".equals(status)) {
+  %>
+          <script>
+              Swal.fire({
+                  icon: 'error',
+                  title: 'Transaction',
+                  text: '<%= status %>',
+              }).then(function() {
+                  window.location.href = 'transactionPage.jsp';
+              });
+          </script>
+  <%
+          request.setAttribute("errorMessage", null);
+      }
+  %>
 </html>

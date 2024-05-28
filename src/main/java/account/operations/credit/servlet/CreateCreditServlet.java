@@ -42,9 +42,10 @@ public class CreateCreditServlet extends HttpServlet {
 
         String amount = req.getParameter("amount");
         String term = req.getParameter("term");
+        int status = 0;
         try
         {
-            CreditDAO.createCredit(
+            status = CreditDAO.createCredit(
                     currentUser.getAccount(currentAccountIndex).getId(),
                     Double.parseDouble(amount),
                     Integer.parseInt(term));
@@ -54,6 +55,12 @@ public class CreateCreditServlet extends HttpServlet {
             logger.error("Creating credit servlet error❌: " + e.getMessage());
         }
         logger.info("CreateCreditServlet finished✅");
-        resp.sendRedirect("accountPage.jsp");
+        if (status > 0) {
+            req.setAttribute("successMessage", "Successfully!");
+        } else {
+            req.setAttribute("errorMessage", "Failed!");
+        }
+        req.getRequestDispatcher("creditForm.jsp").include(req, resp);
+        //resp.sendRedirect("accountPage.jsp");
     }
 }

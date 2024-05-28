@@ -113,7 +113,6 @@ public class TransactionDAO {
         }
         catch(SQLException e)
         {
-            e.printStackTrace(System.err);
             logger.error("INSERT transaction data to database ERROR❌!");
             logger.error("SQLState: " + e.getSQLState());
             logger.error("Error code: " + e.getErrorCode());
