@@ -1,6 +1,6 @@
 # MySQL-Bank-Management-System
 Coursework on the topic bank management system<br>
-<strong>MySQL + Java + JDBC + Servlet + JSP + TomCat</strong>
+<strong>MySQL + Java + JDBC + Servlet + JSP + TomCat + Maven</strong>
 
 <h1>Software project part</h1>
 
