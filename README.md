@@ -1,8 +1,8 @@
-MySQL-bank-management-system
-Coursework on the topic bank management system
-MySQL + Java + JDBC + Servlet + JSP + TomCat
+# MySQL-bank-management-system
+Coursework on the topic bank management system<br>
+<strong>MySQL + Java + JDBC + Servlet + JSP + TomCat</strong>
 
-Software project part
+<h1>Software project part</h1>
 
 ![image0](https://github.com/JustSashaUP/bank-managment-system/assets/94720780/ca0cc847-c86e-4055-aa83-41da4d3eb1cd)
 ![image1](https://github.com/JustSashaUP/bank-managment-system/assets/94720780/a538673f-8468-441e-adb1-694f386aa13a)
