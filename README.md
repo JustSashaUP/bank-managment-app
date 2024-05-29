@@ -1,4 +1,4 @@
-![Снимок экрана 2024-05-29 145202](https://github.com/JustSashaUP/bank-managment-system/assets/94720780/1b59bc94-facc-4b5d-8e58-a9d48e7f0b75)
-![Снимок экрана 2024-05-29 144145](https://github.com/JustSashaUP/bank-managment-system/assets/94720780/a538673f-8468-441e-adb1-694f386aa13a)
-![Снимок экрана 2024-05-29 144219](https://github.com/JustSashaUP/bank-managment-system/assets/94720780/1313c58f-d611-44e0-ac0c-e3d099056d61)
-![Снимок экрана 2024-05-29 144313](https://github.com/JustSashaUP/bank-managment-system/assets/94720780/f89acd47-7d0b-4722-a785-99ae7e370d1d)
+![image0](https://github.com/JustSashaUP/bank-managment-system/assets/94720780/762762fc-9dcf-496a-a6a2-2d4fe02e3010)
+![image1](https://github.com/JustSashaUP/bank-managment-system/assets/94720780/a538673f-8468-441e-adb1-694f386aa13a)
+![image2](https://github.com/JustSashaUP/bank-managment-system/assets/94720780/1313c58f-d611-44e0-ac0c-e3d099056d61)
+![image3](https://github.com/JustSashaUP/bank-managment-system/assets/94720780/f89acd47-7d0b-4722-a785-99ae7e370d1d)
