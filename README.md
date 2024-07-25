@@ -1,6 +1,12 @@
-# MySQL-Bank-Managment-System
+# MySQL Managment System
 Coursework on the topic bank managment system<br>
-<strong>MySQL + Java + JDBC + Servlet + JSP + TomCat + Maven</strong>
+<ul>
+<li><strong>Programming Language: Java</strong></li>
+<li><strong>DBMS: MySQL</strong></li>
+<li><strong>API: JDBC | Servlet | JSP </strong></li>
+<li><strong>Web server: TomCat</strong></li>
+<li><strong>Build tool: Maven</strong></li>
+</ul>
 
 <h1>Software project part</h1>
 
